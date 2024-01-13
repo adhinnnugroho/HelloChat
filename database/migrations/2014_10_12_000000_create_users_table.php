@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer("user_level");
             $table->integer("id_user_details");
             $table->string("google_id");
+            $table->string("user_token");
             $table->rememberToken();
             $table->timestamps();
         });

@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->string('name');
-            $table->string('email');
-            $table->longText('avatar');
-            $table->Text("handphone_number");
-            $table->longText("status_account");
+            $table->longText('avatar')->nullable();
+            $table->Text("handphone_number")->nullable();
+            $table->longText("status_account")->nullable();
             $table->timestamps();
         });
     }

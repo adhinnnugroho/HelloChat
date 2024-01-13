@@ -7,60 +7,77 @@ use App\Models\Account;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Accounts\UserDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController extends Controller
 {
-    public function redirectToGoogle(){
+    public function redirectToGoogle()
+    {
         return Socialite::driver('google')->redirect();
     }
 
 
-    public function Handlecallback(){
+    public function Handlecallback()
+    {
         $user = Socialite::driver('google')->user();
-        $find = Account::where(['google_id' => $user->getId()])->first();
+        $find = User::where(['google_id' => $user->getId()])->first();
 
-        if (is_null($find)) {
-            $findUser = false;
-        }else{
-            $findUser = User::where(['id' => $find->id_user])->first();
+        if (!is_null($find)) {
+            $findUser = UserDetails::where(['id' => $find->id_user_details])->first();
+        } else {
+            $findUser = null;
         }
 
-        if($findUser){
+        if (!is_null($findUser)) {
             Auth::login($findUser, true);
             return redirect()->intended('dashboard');
-        }else{
+        } else {
             $uuid = Str::uuid();
             $email = $user->getEmail();
+            $name = $user->getName();
             $avatar = $user->getAvatar();
-            $username = $email;
+            $username = $this->generateRandomUsername($name);
+            $token_user = $this->generateTokenUser($name);
             $password = Hash::make($email);
             $google_id = $user->getId();
 
-            $usermaster = User::create([
-                'uuid'     => $uuid,
-                'email'     => $email,
-                'avatar'      => $avatar,
-                'name' => $user->getName(),
-                'username' => $username
+            $details_user = UserDetails::create([
+                'uuid' => $uuid,
+                'avatar' => $avatar
             ]);
 
-            $accountNew = Account::create([
-                'uuid'     => $uuid,
-                'google_id' => $google_id,
-                'email' => $email,
+            $user = User::create([
+                'uuid' => $uuid,
+                'name' => $name,
                 'username' => $username,
-                'password'  => $password,
-                'level'     => 1,
-                'id_user' => $usermaster->id,
+                'email'    => $email,
+                'password' => $password,
+                'user_level' => 1,
+                'id_user_details' => $details_user->id,
+                'google_id' => $google_id,
+                'user_token' => $token_user
             ]);
 
-            $account = User::where(['uuid' => $accountNew->uuid])->first();
-            Auth::login($account, true);
+            Auth::login($user, true);
             return redirect()->intended('dashboard');
         }
     }
 
+    private function generateRandomUsername($name)
+    {
+        $namaDepan = explode(' ', $name)[0];
+        $username_hello = $namaDepan . "@hello-chat";
+        return $username_hello;
+    }
+
+    function generateTokenUser($fullName)
+    {
+        $namaDepan = explode(' ', $fullName)[0];
+        $randomCode = substr(str_shuffle("hellochat"), 0, 4);
+        $token = $namaDepan . "_" . $randomCode;
+        return $token;
+    }
 }

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            $table->enum('type_messages', ['text', 'image', 'video', 'voice', 'docs']);
+            $table->enum('type_messages', ['text', 'image', 'video', 'voice', 'docs'])
+                ->after('sender_deleted_at');
         });
     }
 

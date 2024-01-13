@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('chats', function (Blueprint $table) {
-            $table->longText('chat_room')->nullable();
+            $table->longText('chat_room')->nullable()->after("receiver_id");
         });
     }
 

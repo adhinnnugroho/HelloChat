@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class ListChat extends Component
 {
     public $user, $search_chat, $user_login;
+    public $listeners = [
+        'sendnewmessage' => 'refreshChat',
+    ];
+
     public function render()
     {
         return view('livewire.chat.list-chat');
@@ -27,6 +31,17 @@ class ListChat extends Component
             'with_users' => $data_userLogin->id
         ])->get();
     }
+
+    public function refreshChat($chat_room)
+    {
+        $data_userLogin = Auth::user();
+        $this->user = ChatRoom::where([
+            'this_users' => $data_userLogin->id
+        ])->orWhere([
+            'with_users' => $data_userLogin->id
+        ])->get();
+    }
+
 
     public function readMessage($contact_id)
     {

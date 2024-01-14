@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\Message;
 use App\Helpers\Encryption;
+use App\Models\Chat\ChatRoom;
 use App\Models\ListContact;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 
 class Chat extends Model
 {
@@ -41,7 +43,13 @@ class Chat extends Model
         ])->whereNull('read_at')->count();
     }
 
-    public function EncrytionsChatId($chat_id){
+    public function EncrytionsChatId($chat_id)
+    {
         return Encryption::encryptId($chat_id);
+    }
+
+    public function ChatRooms()
+    {
+        $this->belongsTo(ChatRoom::class, 'chat_room', 'id');
     }
 }

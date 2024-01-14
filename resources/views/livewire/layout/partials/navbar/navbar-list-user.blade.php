@@ -3,10 +3,10 @@
         <div>
             @if (stripos($userLogin->avatar, 'images/') !== false)
                 <img src="{{ asset('/storage/' . $userLogin->avatar) }}" alt=""
-                    class="rounded-full h-12 w-12 ml-3 cursor-pointer"
+                    class="rounded-full h-11 w-11 ml-3 cursor-pointer"
                     x-on:click="openSettingSidebar = !openSettingSidebar">
             @else
-                <img src="{{ $userLogin->avatar }}" alt="" class="rounded-full h-12 w-12 ml-3 cursor-pointer"
+                <img src="{{ $userLogin->avatar }}" alt="" class="rounded-full h-11 w-11 ml-3 cursor-pointer"
                     x-on:click="openSettingSidebar = !openSettingSidebar">
             @endif
         </div>

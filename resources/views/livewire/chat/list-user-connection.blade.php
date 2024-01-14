@@ -40,32 +40,18 @@
         <!-- message -->
         <div class="lg:w-full">
             <div class="overflow-y-auto">
-                @foreach ($user as $key => $item)
-                    <template x-if="selectedContact == '{{ $item->receiver->id ?? $item->sender->id }}'">
-                        <div class="flex flex-col justify-between">
-                            @livewire('history-chat.navbar-history-chat', [
-                                'selectedContactId' => $item->receiver->id_user ?? $item->sender->id_user,
-                            ])
-                            <div class="">
-                                @livewire('chat.history-chat', [
-                                    'selectedContactId' => $item->receiver->id_user ?? $item->sender->id_user,
-                                ])
-                            </div>
-                        </div>
-                    </template>
-                @endforeach
+                @livewire('chat.handle-chats')
             </div>
         </div>
         <!-- end message -->
-        <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
+        {{-- <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
             @foreach ($user as $key => $item)
-                <template
-                    x-if="selectedContact == '{{ $item->EncrytionsChatId($item->receiver->id ?? $item->sender->id) }}'">
+                <template x-if="selectedContact == '{{ $item->uuid }}'">
                     @livewire('history-chat.sidebar-history-chat', [
-                        'selectedContactId' => $item->receiver->id ?? $item->sender->id,
+                        'selectedContactId' => $item->uuid,
                     ])
                 </template>
             @endforeach
-        </div>
+        </div> --}}
     </div>
 </div>

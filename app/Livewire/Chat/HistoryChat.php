@@ -5,6 +5,7 @@ namespace App\Livewire\Chat;
 use App\Models\Chat;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Chat\ChatRoom;
 use App\Models\Message;
 use Livewire\Component;
 use App\Models\ListContact;
@@ -31,7 +32,6 @@ class HistoryChat extends Component
         $this->account_data = User::where(['id' => $this->selectedContactId])->first();
         $this->chatvalue = null;
         $data_userLogin = Auth::user();
-
         $this->history_chat = Chat::where(function ($query) use ($data_userLogin) {
             $query->where('sender_id', $data_userLogin->id)->orWhere('receiver_id', $data_userLogin->id);
         })->where(function ($query) {
@@ -43,16 +43,23 @@ class HistoryChat extends Component
     {
         $valueChat = $this->chatvalue;
         $data_userLogin = Auth::user();
+        $chat_room = ChatRoom::where([
+            'id' => $this->selectedContactId
+        ])->first();
+
+
+
 
         $checking_chat = Chat::where([
             'sender_id' => $data_userLogin->id,
-            'receiver_id' => $this->selectedContactId,
+            'receiver_id' => $chat_room->with_users,
         ])->first();
 
         if (is_null($checking_chat)) {
             $chat_id = Chat::create([
                 'sender_id' => $data_userLogin->id,
-                'receiver_id' => $this->selectedContactId,
+                'receiver_id' => $chat_room->with_users,
+                'chat_room'   => $this->selectedContactId
             ]);
         } else {
             $chat_id = $checking_chat;

@@ -18,7 +18,7 @@
 
             <textarea rows="1" class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
                 placeholder="Ketik pesan Anda..." id="send_message" x-ref="input" x-model="inputValue" wire:model.lazy="chatvalue"
-                @keydown.enter="submitForm" x-on:keyup="adjustInputHeight"   style="height: 50px;">
+                @keydown.enter="submitForm" x-on:keyup="adjustInputHeight" style="height: 50px;">
             </textarea>
             <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i>
         </div>

@@ -31,8 +31,9 @@ class GoogleController extends Controller
             $findUser = null;
         }
 
+
         if (!is_null($findUser)) {
-            Auth::login($findUser, true);
+            Auth::login($find, true);
             return redirect()->intended('dashboard');
         } else {
             $uuid = Str::uuid();

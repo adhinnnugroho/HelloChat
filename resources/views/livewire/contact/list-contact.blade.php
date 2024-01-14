@@ -16,7 +16,8 @@
 
         @foreach ($contact as $item)
             <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                x-on:click="selectedContact = '{{ $item->contact_user_id }}'">
+                x-on:click="selectedContact = '{{ $item->uuid }}'"
+                wire:click="createNewChatRoom('{{ $item->EncrytionsId($item->id) }}')">
                 <div class="w-1/5 ml-4">
                     @if (stripos($item->User->UserDetails->avatar, 'images/') !== false)
                         <img src="{{ asset('/storage/' . $item->User->UserDetails->avatar) }}"

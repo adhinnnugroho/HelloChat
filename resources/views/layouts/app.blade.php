@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'HELLOCHAT') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,7 +23,7 @@
     <style>
         .cropper-view-box,
         .cropper-face {
-        border-radius: 50%;
+            border-radius: 50%;
         }
 
         /* The css styles for `outline` do not follow `border-radius` on iOS/Safari (#979). */
@@ -36,7 +36,7 @@
 
 </head>
 
-<body class=" max-h-screen " >
+<body class=" max-h-screen ">
 
     @include('layouts.navigation')
 
@@ -50,7 +50,7 @@
     @livewireScripts
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('/assets/js/custom-function.js') }}"></script>
     <script src="{{ asset('/assets/js/crop/crop.js') }}"></script>
     @yield('scripts')

@@ -20,24 +20,30 @@ class AddNewContact extends Component
         return view('livewire.new-contact.add-new-contact');
     }
 
-    public function mount(){
+    public function mount()
+    {
         $this->user = collect([]);
     }
 
-    public function updatedSearch($value){
-        $this->user = User::where(function ($query) use ($value) {
-            $query->where('name', 'like', '%' . $value . '%')
-                ->orWhere('username', 'like', '%' . $value . '%');
-        })
-        ->where('id', '!=', Auth::user()->id)
-        ->get();
+    public function updatedSearch($value)
+    {
+        if (!is_null($value)) {
+            $this->user = User::where(function ($query) use ($value) {
+                $query->where('user_token', 'like', '%' . $value . '%');
+            })->where('id', '!=', Auth::user()->id)->get();
+        } else {
+            $this->user = null;
+        }
     }
 
-    public function validationFrom($id){
+    public function validationFrom($id)
+    {
         $uuid = Str::uuid();
         ListContact::create([
             'uuid' => $uuid,
-            'id_user' => $id,
+            'id_user_login' => Auth::user()->id,
+            'contact_user_id' => $id,
+            'saved_contact_date' => date('Y-m-d H:i:s')
         ]);
 
         $alert = [

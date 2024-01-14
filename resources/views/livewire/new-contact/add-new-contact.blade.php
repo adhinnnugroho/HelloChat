@@ -28,7 +28,7 @@
                     </div>
                     <input type="search" id="default-search" wire:model.live="search"
                         class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
-                        placeholder="Search Name, username..." required>
+                        placeholder="Search user token..." required>
                 </div>
             </div>
 
@@ -39,13 +39,19 @@
                         @foreach ($user as $item)
                             <tr>
                                 <td class="py-2 px-3 border-b border-gray-300">
-                                    <img src="{{ $item->avatar }}" class="rounded-full w-16 h-16 mb-5 content-center">
+                                    @if (stripos($item->UserDetails->avatar, 'images/') !== false)
+                                        <img src="{{ asset('/storage/' . $item->UserDetails->avatar) }}"
+                                            class="rounded-full w-16 h-16 mb-5 content-center">
+                                    @else
+                                        <img src="{{ $item->UserDetails->avatar }}"
+                                            class="rounded-full w-16 h-16 mb-5 content-center">
+                                    @endif
                                 </td>
                                 <td class="py-2 px-3 border-b border-gray-300">
                                     {{ $item->name }}({{ $item->username }})</td>
                                 <td class="py-2 px-3 border-b border-gray-300">
-                                    <x-button.rounded-button wire:loading.attr="disabled" color="gold" wire:offline.attr="disabled"
-                                        wire:click="validationFrom({{ $item->id }})">
+                                    <x-button.rounded-button wire:loading.attr="disabled" color="gold"
+                                        wire:offline.attr="disabled" wire:click="validationFrom({{ $item->id }})">
                                         <div wire:loading.remove wire:target="validationFrom({{ $item->id }})">
                                             {{ __('Tambah') }}
                                         </div>

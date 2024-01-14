@@ -13,6 +13,6 @@ class ListContact extends Model
 
     public function User()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id');
+        return $this->belongsTo(User::class, 'contact_user_id', 'id');
     }
 }

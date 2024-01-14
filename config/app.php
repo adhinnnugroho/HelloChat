@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Upload;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -169,6 +170,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\EncryptServiceProvider::class,
+        App\Providers\ConvertServiceProvider::class,
+        App\Providers\UploadServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -185,6 +188,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Encryption' => App\Helpers\Encryption::class,
+        'Convert' => App\Helpers\Convert::class,
+        'Upload'  => App\Helpers\Upload::class,
     ])->toArray(),
 
 ];

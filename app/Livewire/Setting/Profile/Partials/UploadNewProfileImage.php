@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Setting\Profile\Partials;
 
+use App\Helpers\Upload;
+use App\Models\Accounts\UserDetails;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +36,8 @@ class UploadNewProfileImage extends Component
     private function uploadProfile($image)
     {
         $image_parts = explode(';base64,', $image);
-        $image_type_aux = explode('image/', $image_parts[0]);
-        $image_type = $image_type_aux[1];
+        // $image_type_aux = explode('image/', $image_parts[0]);
+        // $image_type = $image_type_aux[1];
         $image_base64 = base64_decode($image_parts[1]);
         $filename = 'FILE_PROFILE_' . date('Ymd') . '_' . time() . '.png';
         $filelocation = 'images/user-profile/';
@@ -62,10 +64,15 @@ class UploadNewProfileImage extends Component
 
     public function uploadfiletoServer($image)
     {
+        // $filelocation = $this->uploadProfile($image);
         $user = Auth::user();
-        $filelocation = $this->uploadProfile($image);
-        $user->update([
-            'avatar' => $filelocation,
+        $Upload = Upload::toUpload($image, 'profile_user');
+        $filelocation = $Upload['filelocation'];
+
+        UserDetails::where([
+            'id' => $user->id_user_details
+        ])->update([
+            'avatar' => $filelocation
         ]);
 
         $alert = [

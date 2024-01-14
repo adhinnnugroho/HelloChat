@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Layout\Partials\Navbar;
 
+use App\Models\Accounts\UserDetails;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,9 @@ class NavbarListUser extends Component
         return view('livewire.layout.partials.navbar.navbar-list-user');
     }
 
-    public function mount(){
+    public function mount()
+    {
         $data_userLogin = Auth::user();
-        $this->userLogin = User::where(['id' => $data_userLogin->id])->first();
+        $this->userLogin = UserDetails::where(['id' => $data_userLogin->id])->first();
     }
 }

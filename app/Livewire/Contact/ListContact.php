@@ -15,10 +15,11 @@ class ListContact extends Component
         return view('livewire.contact.list-contact');
     }
 
-    public function mount(){
+    public function mount()
+    {
         $data_userLogin = Auth::user();
         $this->contact = modelListContact::where([
-            'user_login' => $data_userLogin->id
+            'id_user_login' => $data_userLogin->id
         ])->get();
     }
 }

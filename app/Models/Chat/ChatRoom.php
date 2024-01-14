@@ -4,6 +4,7 @@ namespace App\Models\Chat;
 
 use App\Helpers\Encryption;
 use App\Models\Chat;
+use App\Models\ListContact;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -55,11 +56,24 @@ class ChatRoom extends Model
 
     private static function getNameUsers($code)
     {
+        $data_userLogin = Auth::user();
+
+        $checking_list_contact = ListContact::where([
+            'id_user_login' => $data_userLogin->id,
+            'contact_user_id' => $code
+        ])->first();
+
         $data_user = User::where([
             'id' => $code
         ])->first();
+        if (!is_null($checking_list_contact) || !empty($checking_list_contact)) {
+            $username = $data_user->name;
+        } else {
+            $username = $data_user->username;
+        }
 
-        return $data_user->name;
+
+        return $username;
     }
 
     private static function getRoleUsers($code)

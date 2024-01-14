@@ -45,5 +45,35 @@
             </ul>
         </div>
 
+
+        <div class="ml-5 mt-5 mr-5">
+            <div class="name-profile">
+                <h5 class="text-xl font-bold mb-4">
+                    Nama Anda
+                </h5>
+
+
+                <div class="border border-white border-b-gray-500 pb-1">
+                    {{ $userLogin->Users->name }}
+                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
+                </div>
+                <p class="mt-4">
+                    Ini bukan nama pengguna atau PIN Anda. Nama ini akan ditampilkan ke kontak hellochat Anda.
+                </p>
+            </div>
+
+            <div class="info-profile mt-10">
+                <h5 class="text-xl font-bold mb-4">
+                    Info Akun
+                </h5>
+
+
+                <div class="border border-white border-b-gray-500 pb-1">
+                    {{ $userLogin->info_account ?? '...' }}
+                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>

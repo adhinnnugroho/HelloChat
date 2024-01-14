@@ -1,13 +1,13 @@
-<div class="py-4 border-b-2 bg-gray-200 px-2">
+<div class="py-3 border-b-2 bg-gray-200 px-2">
     <div class="flex flex-wrap justify-between">
         <div>
             @if (stripos($userLogin->avatar, 'images/') !== false)
                 <img src="{{ asset('/storage/' . $userLogin->avatar) }}" alt=""
                     class="rounded-full h-11 w-11 ml-3 cursor-pointer"
-                    x-on:click="openSettingSidebar = !openSettingSidebar">
+                    x-on:click="openSettingProfile = !openSettingProfile">
             @else
                 <img src="{{ $userLogin->avatar }}" alt="" class="rounded-full h-11 w-11 ml-3 cursor-pointer"
-                    x-on:click="openSettingSidebar = !openSettingSidebar">
+                    x-on:click="openSettingProfile = !openSettingProfile">
             @endif
         </div>
         <div class="float-right" x-data="{ isOpen: false }">

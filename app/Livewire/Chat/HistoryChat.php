@@ -48,26 +48,39 @@ class HistoryChat extends Component
         ])->first();
 
 
-
-
-        $checking_chat = Chat::where([
-            'sender_id' => $data_userLogin->id,
-            'receiver_id' => $chat_room->with_users,
-        ])->first();
-
-        if (is_null($checking_chat)) {
-            $chat_id = Chat::create([
-                'sender_id' => $data_userLogin->id,
-                'receiver_id' => $chat_room->with_users,
-                'chat_room'   => $this->selectedContactId
-            ]);
+        if ($chat_room->this_users == $data_userLogin->id) {
+            $with_user = $chat_room->with_users;
         } else {
-            $chat_id = $checking_chat;
+            $with_user = $chat_room->this_users;
         }
+
+
+
+        // $checking_chat = Chat::where([
+        //     'sender_id' => $data_userLogin->id,
+        //     'receiver_id' => $with_user,
+        // ])->first();
+
+        // if (is_null($checking_chat)) {
+        //     $chat_id = Chat::create([
+        //         'sender_id' => $data_userLogin->id,
+        //         'receiver_id' => $with_user,
+        //         'chat_room'   => $this->selectedContactId
+        //     ]);
+        // } else {
+        //     $chat_id = $checking_chat;
+        // }
+
+        $chat_id = Chat::create([
+            'sender_id' => $data_userLogin->id,
+            'receiver_id' => $with_user,
+            'chat_room'   => $this->selectedContactId
+        ]);
 
         Message::create([
             'chat_id' => $chat_id->id,
             'boddy_message' => $valueChat,
+            'chat_room'   => $chat_room->id
         ]);
 
         $this->chatvalue = null;
@@ -77,6 +90,6 @@ class HistoryChat extends Component
             $query->where('sender_id', $this->selectedContactId)->orWhere('receiver_id', $this->selectedContactId);
         })->first();
 
-        $this->dispatch('sendnewmessage');
+        $this->dispatch('sendnewmessage', $chat_room->id);
     }
 }

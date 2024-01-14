@@ -23,7 +23,7 @@ class Chat extends Model
 
     public function lastMessage()
     {
-        return $this->belongsTo(Message::class, 'id', 'chat_id')->latest();
+        return $this->belongsTo(Message::class, 'chat_room', 'chat_room')->latest();
     }
 
     public function sender()
@@ -38,9 +38,22 @@ class Chat extends Model
 
     public function unreadMessagesCount($chat_id)
     {
-        return Message::where([
-            'chat_id' => $chat_id
-        ])->whereNull('read_at')->count();
+        $data_chat = self::where([
+            'id' => $chat_id
+        ])->first();
+
+        $data_message = Message::where([
+            'chat_room' => $data_chat->chat_room
+        ])->latest()->first();
+        $data_userLogin = Auth::user();
+
+        if ($data_message->Chats->receiver_id == $data_userLogin->id) {
+            return Message::where([
+                'chat_id' => $data_message->chat_id
+            ])->whereNull('read_at')->count();
+        } else {
+            return 0;
+        }
     }
 
     public function EncrytionsChatId($chat_id)

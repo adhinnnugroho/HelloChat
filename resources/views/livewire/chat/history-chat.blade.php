@@ -3,7 +3,7 @@
     @if (is_null($history_chat))
     @else
         @livewire('chats.handle-value-chat', [
-            'chat_id' => $history_chat->id,
+            'chat' => $history_chat->id,
             'selectedContactId' => $selectedContactId,
         ])
     @endif

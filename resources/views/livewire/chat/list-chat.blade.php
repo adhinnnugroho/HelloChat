@@ -24,7 +24,7 @@
                 @foreach ($user as $item)
                     @if (!empty($item->chats->id))
                         <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                            wire:click.stop="readMessage('{{ $item->EncrytionsChatId($item->chats->id) }}')"
+                            wire:click.stop="readMessage('{{ $item->EncrytionsChatId($item->chats->lastMessage->chat_id) }}')"
                             x-on:click="selectedContact = '{{ $item->uuid_list_contact }}'">
                             <div class="w-1/4">
                                 <img src="{{ $item->getAvatar() }}" class="object-cover h-12 w-12 ml-5 rounded-full"
@@ -32,21 +32,21 @@
                             </div>
                             <div class="w-full">
                                 <div
-                                    class="{{ $item->chats->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'font-semibold' }} text-lg ">
+                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'font-semibold' }} text-lg ">
                                     {{ $item->getName() }}
                                 </div>
                                 <span
-                                    class="{{ $item->chats->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }}">
+                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }}">
                                     {{ implode('..', str_split($item->chats->lastMessage->boddy_message, 20)) }}
                                 </span>
                                 <div
-                                    class="{{ $item->chats->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
+                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
                                     {{ date('H:i', strtotime($item->chats->lastMessage->created_at)) }}
                                 </div>
-                                @if ($item->chats->unreadMessagesCount($item->id) > 0)
+                                @if ($item->chats->unreadMessagesCount($item->chats->id) > 0)
                                     <div
                                         class="float-right mt-1 bg-green-700 rounded-full text-white w-6 h-6 text-center lg:-mr-7">
-                                        {{ $item->chats->unreadMessagesCount($item->id) }}
+                                        {{ $item->chats->unreadMessagesCount($item->chats->id) }}
                                     </div>
                                 @endif
                             </div>

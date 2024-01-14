@@ -22,27 +22,19 @@ class HandleValueChat extends Component
         return view('livewire.chats.handle-value-chat');
     }
 
-    public function refreshChat()
+    public function refreshChat($chat_room)
     {
-        $this->chat = Chat::where(function($query) {
-            $query->where('sender_id', $this->user_login->id)
-                ->orWhere('receiver_id', $this->user_login->id);
-        })->where(function($query) {
-            $query->where('sender_id', $this->selectedContactId)
-                ->orWhere('receiver_id', $this->selectedContactId);
-        })->get();
+        $this->chat = Chat::where([
+            'chat_room' => $chat_room
+        ])->get();
     }
 
     public function mount()
     {
         $this->user_login = Auth::user();
 
-        $this->chat = Chat::where(function($query) {
-            $query->where('sender_id', $this->user_login->id)
-                ->orWhere('receiver_id', $this->user_login->id);
-        })->where(function($query) {
-            $query->where('sender_id', $this->selectedContactId)
-                ->orWhere('receiver_id', $this->selectedContactId);
-        })->get();
+        $this->chat = Chat::where([
+            'chat_room' => $this->chat
+        ])->get();
     }
 }

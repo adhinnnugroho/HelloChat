@@ -14,8 +14,8 @@
                 <div x-show="!openSettingProfile">
                     <div class="" x-show="!openSettingSidebar">
 
-                        @livewire("chat.list-chat", [
-                            'user' => $user
+                        @livewire('chat.list-chat', [
+                            'user' => $user,
                         ])
 
                     </div>
@@ -23,7 +23,7 @@
             </div>
 
             <div x-show="ListContact">
-                @livewire("contact.list-contact")
+                @livewire('contact.list-contact')
             </div>
 
             <div x-show="!openSettingProfile">

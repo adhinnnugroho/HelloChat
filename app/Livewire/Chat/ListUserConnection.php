@@ -27,15 +27,16 @@ class ListUserConnection extends Component
         $data_userLogin = Auth::user();
         $this->user = Chat::where(function ($query) use ($data_userLogin) {
             $query->where('receiver_id', $data_userLogin->id)
-            ->orWhere('sender_id', $data_userLogin->id);
+                ->orWhere('sender_id', $data_userLogin->id);
         })->orWhere(function ($query) use ($data_userLogin) {
             $query->where('receiver_id', $data_userLogin->id)
-            ->orWhere('sender_id', $data_userLogin->id);
+                ->orWhere('sender_id', $data_userLogin->id);
         })->orderBy('chats.created_at', 'desc')->get();
     }
 
     public function setNewUser()
     {
+        $data_userLogin = Auth::user();
         $this->user = Chat::where(function ($query) use ($data_userLogin) {
             $query->where('receiver_id', $data_userLogin->id)
                 ->orWhere('sender_id', $data_userLogin->id);

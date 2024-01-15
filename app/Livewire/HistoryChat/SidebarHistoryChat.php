@@ -4,6 +4,7 @@ namespace App\Livewire\HistoryChat;
 
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Chat\ChatRoom;
 
 class SidebarHistoryChat extends Component
 {

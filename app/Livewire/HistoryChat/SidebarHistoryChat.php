@@ -14,7 +14,8 @@ class SidebarHistoryChat extends Component
     }
 
     public function mount(){
-        $this->selectedContact = User::where(['id' => $this->selectedContactId])->first();
+        $this->selectedContact = ChatRoom::where(['uuid_list_contact' => $this->selectedContactId])->first();
+
     }
 
 

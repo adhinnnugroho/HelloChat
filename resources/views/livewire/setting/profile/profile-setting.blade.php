@@ -30,9 +30,7 @@
                     </div>
                 </div>
             </div>
-            <ul x-show="isOpen"
-                class="absolute right-6 -mt-24 shadow w-44 bg-white border
-                rounded-lg text-black overflow-hidden">
+            <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-6 -mt-24">
                 @livewire('setting.profile.partials.show-profile-image')
                 @livewire(
                     'setting.profile.partials.upload-new-profile-image',
@@ -42,7 +40,7 @@
                     key($userLogin->id)
                 )
                 @livewire('setting.profile.partials.remove-profile-image')
-            </ul>
+            </x-menu.drop-down-menu>
         </div>
 
 
@@ -53,7 +51,7 @@
                 </h5>
 
 
-                <div class="border border-white border-b-gray-500 pb-1"
+                <div class="border border-b-gray-500 pb-1"
                     x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
                     {{ $userLogin->Users->name }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
@@ -69,7 +67,7 @@
                 </h5>
 
 
-                <div class="border border-white border-b-gray-500 pb-1"
+                <div class="border border-b-gray-500 pb-1"
                     x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
                     {{ $userLogin->info_account ?? '...' }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>

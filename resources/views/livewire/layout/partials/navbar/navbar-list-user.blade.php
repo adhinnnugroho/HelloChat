@@ -16,10 +16,7 @@
                 <i class="fa fa-ellipsis-vertical text-3xl cursor-pointer" x-on:click="isOpen = !isOpen"></i>
 
                 <!-- Menu konteks atau dropdown -->
-                <ul x-show="isOpen" style="display: none;"
-                    class="absolute right-0 mt-8 shadow w-36 border
-                    rounded-lg text-black"
-                    x-bind:class="{ 'bg-black text-white border-b-gray-500 ': $store.darkMode.on }">
+                <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-0 mt-8">
                     @livewire('new-contact.add-new-contact')
                     <li class="p-2 hover:bg-gray-300 cursor-pointer"
                         x-bind:class="{ 'hover:text-black ': $store.darkMode.on }"
@@ -31,7 +28,7 @@
                             Logout
                         </li>
                     </a>
-                </ul>
+                </x-menu.drop-down-menu>
             </div>
         </div>
     </div>

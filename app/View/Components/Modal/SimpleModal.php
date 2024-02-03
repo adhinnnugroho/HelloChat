@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class SimpleModal extends Component
 {
-    public $title, $subtitle, $icon, $show_id;
+    public $title, $subtitle, $icon, $show_id, $footer;
     public $id;
 
     /**
@@ -33,6 +33,4 @@ class SimpleModal extends Component
     {
         return view('components.modal.simple-modal');
     }
-
-
 }

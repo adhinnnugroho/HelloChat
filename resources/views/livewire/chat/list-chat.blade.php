@@ -5,20 +5,6 @@
             @livewire('layout.partials.navbar.navbar-list-user')
             <x-input.border-input type="text" placeholder="search chatting" wire:model.live="search_chat" />
             @if (count($user) > 0)
-                {{-- <template x-for="userList in listUserConnects">
-                    <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                        x-on:click="selectedContact = userList.id">
-                        <div class="w-1/4">
-                            <img :src="userList.user.avatar"
-                                class="object-cover h-12 w-12 ml-5 rounded-full" alt="" />
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold" x-text="userList.user.name"></div>
-                            <span class="text-gray-500">Pick me at 9:00 Am</span>
-                        </div>
-                    </div>
-                </template> --}}
-
                 @foreach ($user as $item)
                     @if (!empty($item->chats->id))
                         <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"

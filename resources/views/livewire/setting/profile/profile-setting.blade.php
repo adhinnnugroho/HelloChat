@@ -52,7 +52,11 @@
 
 
                 <div class="border border-b-gray-500 pb-1"
-                    x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
+                    x-bind:class="{
+                        'bg-black text-white border-black border-b-gray-600': $store.darkMode.on,
+                        'bg-white border-white text-black border-b-gray-400':
+                            !$store.darkMode.on
+                    }">
                     {{ $userLogin->Users->name }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
                 </div>
@@ -68,7 +72,11 @@
 
 
                 <div class="border border-b-gray-500 pb-1"
-                    x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
+                    x-bind:class="{
+                        'bg-black text-white border-black border-b-gray-600': $store.darkMode.on,
+                        'bg-white border-white text-black border-b-gray-400':
+                            !$store.darkMode.on
+                    }">
                     {{ $userLogin->info_account ?? '...' }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
                 </div>

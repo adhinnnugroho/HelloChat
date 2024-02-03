@@ -39,7 +39,7 @@
         </div>
         <!-- end chat list -->
         <!-- message -->
-        <div class="lg:w-full w-screen">
+        <div class="lg:w-full w-screen" x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
             <div class="overflow-y-auto">
                 @livewire('chat.handle-chats')
             </div>

@@ -1,5 +1,6 @@
 <div x-data="{ modelOpen: false }">
-    <li class="p-2 hover:bg-gray-300 cursor-pointer" x-on:click="modelOpen = !modelOpen">
+    <li class="p-2 hover:bg-gray-300 cursor-pointer" x-on:click="modelOpen = !modelOpen"
+        x-bind:class="{ 'hover:text-black ': $store.darkMode.on }">
         <a href="#">Tambah Kontak</a>
     </li>
     <x-modal.simple-modal id="show-profile-picture" show_id="modelOpen" title="Tambah Kontak Baru" subtitle=""

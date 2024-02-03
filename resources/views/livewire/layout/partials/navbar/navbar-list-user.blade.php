@@ -1,4 +1,4 @@
-<div class="py-3 border-b-2  px-2" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">
+<div class="py-3 border-b-2  px-2" x-bind:class="{ 'bg-black text-white border-b-gray-500': $store.darkMode.on }">
     <div class="flex flex-wrap justify-between">
         <div>
             @if (stripos($userLogin->avatar, 'images/') !== false)
@@ -17,14 +17,16 @@
 
                 <!-- Menu konteks atau dropdown -->
                 <ul x-show="isOpen" style="display: none;"
-                    class="absolute right-0 mt-8 shadow w-36 bg-white border
-                    rounded-lg text-black">
+                    class="absolute right-0 mt-8 shadow w-36 border
+                    rounded-lg text-black"
+                    x-bind:class="{ 'bg-black text-white border-b-gray-500 ': $store.darkMode.on }">
                     @livewire('new-contact.add-new-contact')
                     <li class="p-2 hover:bg-gray-300 cursor-pointer"
+                        x-bind:class="{ 'hover:text-black ': $store.darkMode.on }"
                         x-on:click="openSettingSidebar = !openSettingSidebar">
                         <a href="#">Setelan</a>
                     </li>
-                    <a href="{{ route('logout') }}">
+                    <a href="{{ route('logout') }}" x-bind:class="{ 'hover:text-black ': $store.darkMode.on }">
                         <li class="p-2 hover:bg-gray-300 cursor-pointer">
                             Logout
                         </li>

@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-col border-r-2 overflow-y-auto" style="height: 50rem">
-        <div class="py-4 border-b-2 bg-gray-200 px-2">
+        <div class="py-4 border-b-2 px-2" x-bind:class="{ 'bg-black text-white border-b-gray-600': $store.darkMode.on }">
             <div class="flex flex-wrap justify-between text-3xl">
                 <div>
                     <i class="fa fa-arrow-left mr-5 ml-4 cursor-pointer" x-on:click="openSettingProfile = false"></i>
@@ -53,7 +53,8 @@
                 </h5>
 
 
-                <div class="border border-white border-b-gray-500 pb-1">
+                <div class="border border-white border-b-gray-500 pb-1"
+                    x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
                     {{ $userLogin->Users->name }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
                 </div>
@@ -68,7 +69,8 @@
                 </h5>
 
 
-                <div class="border border-white border-b-gray-500 pb-1">
+                <div class="border border-white border-b-gray-500 pb-1"
+                    x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
                     {{ $userLogin->info_account ?? '...' }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
                 </div>

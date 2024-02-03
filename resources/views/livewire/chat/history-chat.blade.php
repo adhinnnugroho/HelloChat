@@ -12,7 +12,8 @@
 
 
 
-    <div class="border-b-2 bg-gray-200 w-full p-4 bottom-0 fixed">
+    <div class="border-b-2 w-full p-4 bottom-0 fixed"
+        x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
         <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}' }">
             <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
 

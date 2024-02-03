@@ -7,7 +7,7 @@
     openSettingProfile: false,
     ListContact: false
 }" id="my-chat-list">
-    <div class="flex flex-row justify-between bg-white">
+    <div class="flex flex-row justify-between" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">
         <!-- chat list -->
 
         <div class="lg:w-2/5 w-screen">

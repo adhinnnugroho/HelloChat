@@ -53,6 +53,18 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('/assets/js/custom-function.js') }}"></script>
     <script src="{{ asset('/assets/js/crop/crop.js') }}"></script>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('darkMode', {
+                on: false,
+
+                toggle() {
+                    this.on = !this.on
+                }
+            })
+        })
+    </script>
     @yield('scripts')
     @stack('scripts')
 </body>

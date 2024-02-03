@@ -1,4 +1,4 @@
-<div class="py-3 border-b-2 bg-gray-200 px-2">
+<div class="py-3 border-b-2  px-2" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">
     <div class="flex flex-wrap justify-between">
         <div>
             @if (stripos($userLogin->avatar, 'images/') !== false)

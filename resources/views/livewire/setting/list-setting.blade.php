@@ -17,8 +17,9 @@
         </div>
     </div>
 
-    <div class="text-lg font-semibold flex flex-row py-4 px-2 border-b-2 cursor-pointer dark:bg-black dark:text-white">
-        <div class="lg:ml-4 " @click="$store.darkMode.toggle()">
+    <div class="text-lg font-semibold flex flex-row py-4 px-2 border-b-2 cursor-pointer dark:bg-black dark:text-white"
+        @click="$store.darkMode.toggle()">
+        <div class="lg:ml-4 ">
             <div x-text="$store.darkMode.on"></div>
             Dark Mode
         </div>

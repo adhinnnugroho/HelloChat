@@ -1,10 +1,12 @@
 <div>
-    <div class="fixed overflow-y-auto lg:w-2/7 w-full">
+    <div class="fixed overflow-y-auto lg:w-2/7 w-full"
+        x-bind:class="{ 'bg-black text-white border-blac': $store.darkMode.on }">
         <div class="flex flex-col lg:border-r-2 h-screen">
             @livewire('layout.partials.navbar.navbar-list-user')
             <div class="py-4 px-2">
                 <input type="text" placeholder="search chatting"
-                    class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" wire:model.live="search_chat" />
+                    class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" wire:model.live="search_chat"
+                    x-bind:class="{ 'bg-black text-white border-gray-600': $store.darkMode.on }" />
             </div>
             @if (count($user) > 0)
                 {{-- <template x-for="userList in listUserConnects">

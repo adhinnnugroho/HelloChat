@@ -55,12 +55,30 @@
     <script src="{{ asset('/assets/js/crop/crop.js') }}"></script>
 
     <script>
+        // document.addEventListener('alpine:init', () => {
+        //     Alpine.store('darkMode', {
+        //         on: false,
+
+        //         toggle() {
+        //             this.on = !this.on;
+        //         }
+        //     })
+        // })
+
         document.addEventListener('alpine:init', () => {
             Alpine.store('darkMode', {
                 on: false,
 
+                init() {
+                    const storedDarkMode = localStorage.getItem('darkMode');
+                    if (storedDarkMode !== null) {
+                        this.on = JSON.parse(storedDarkMode);
+                    }
+                },
+
                 toggle() {
-                    this.on = !this.on
+                    this.on = !this.on;
+                    localStorage.setItem('darkMode', JSON.stringify(this.on));
                 }
             })
         })

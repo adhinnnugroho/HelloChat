@@ -29,17 +29,23 @@
                     </div>
                     <input type="search" id="default-search" wire:model.live="search"
                         class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 "
-                        placeholder="Search user token..." required>
+                        placeholder="Search user token..." required
+                        x-bind:class="{
+                            'bg-black text-white border-gray-500 focus:ring-gray-500 focus:border-gray-500 ': $store
+                                .darkMode.on
+                        }">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 mt-5">
-                <table class="min-w-full bg-white">
+                <table class="min-w-full"
+                    x-bind:class="{ 'bg-black text-white border-b-gray-500': $store.darkMode.on }">
                     <tbody>
                         <!-- Contoh baris pengguna -->
                         @foreach ($user as $item)
                             <tr>
-                                <td class="py-2 px-3 border-b border-gray-300">
+                                <td class="py-2 px-3 border-b border-gray-300"
+                                    x-bind:class="{ ' border-black': $store.darkMode.on }">
                                     @if (stripos($item->UserDetails->avatar, 'images/') !== false)
                                         <img src="{{ asset('/storage/' . $item->UserDetails->avatar) }}"
                                             class="rounded-full w-16 h-16 mb-5 content-center">
@@ -48,9 +54,11 @@
                                             class="rounded-full w-16 h-16 mb-5 content-center">
                                     @endif
                                 </td>
-                                <td class="py-2 px-3 border-b border-gray-300">
+                                <td class="py-2 px-3 border-b border-gray-300"
+                                    x-bind:class="{ ' border-black': $store.darkMode.on }">
                                     {{ $item->name }}({{ $item->username }})</td>
-                                <td class="py-2 px-3 border-b border-gray-300">
+                                <td class="py-2 px-3 border-b border-gray-300"
+                                    x-bind:class="{ ' border-black': $store.darkMode.on }">
                                     <x-button.rounded-button wire:loading.attr="disabled" color="gold"
                                         wire:offline.attr="disabled" wire:click="validationFrom({{ $item->id }})">
                                         <div wire:loading.remove wire:target="validationFrom({{ $item->id }})">

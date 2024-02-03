@@ -1,7 +1,4 @@
 <div x-data="{
-    listUserConnects: {{ $user }},
-    countUserConnectlist: {{ count($user) }},
-    selectedContact: '',
     openSidebar: false,
     openSettingSidebar: false,
     openSettingProfile: false,
@@ -9,16 +6,13 @@
 }" id="my-chat-list">
     <div class="flex flex-row justify-between" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">
         <!-- chat list -->
-
         <div class="lg:w-2/5 w-screen">
             <div x-show="!ListContact">
                 <div x-show="!openSettingProfile">
                     <div class="" x-show="!openSettingSidebar">
-
                         @livewire('chat.list-chat', [
                             'user' => $user,
                         ])
-
                     </div>
                 </div>
             </div>

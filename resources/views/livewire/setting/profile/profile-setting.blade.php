@@ -37,24 +37,24 @@
         </div>
 
 
-        <div class="ml-5 mt-5 mr-5">
+        {{-- <div class="ml-5 mt-5 mr-5" x-data="{ isEditingName: false, isEditingInfo: false }">
             <div class="name-profile">
                 <h5 class="text-xl font-bold mb-4">
                     Nama Anda
                 </h5>
-                <div x-data="{ isEditing: false }">
+                <div>
                     <x-profile.border-profile-input>
-                        <span x-show="!isEditing">{{ $userLogin->Users->name }}</span>
-                        <x-input.profile-input x-show="isEditing" @keydown.enter="isEditing = false"
+                        <span x-show="!isEditingName">{{ $userLogin->Users->name }}</span>
+                        <x-input.profile-input x-show="isEditingName" @keydown.enter="isEditingName = false"
                             value="{{ $userLogin->Users->name }}" autofocus />
+
+                        <x-button.rounded-button x-show="isEditingName" class="float-right mt-3 bg-green-700">
+                            done
+                        </x-button.rounded-button>
                         <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"
-                            x-on:click="isEditing = !isEditing"></i>
+                            x-on:click="isEditingName = !isEditingName" x-show="!isEditingName"></i>
                     </x-profile.border-profile-input>
                 </div>
-
-                <p class="mt-4">
-                    Ini bukan nama pengguna atau PIN Anda. Nama ini akan ditampilkan ke kontak hellochat Anda.
-                </p>
             </div>
 
             <div class="info-profile mt-10">
@@ -63,14 +63,59 @@
                 </h5>
 
                 <x-profile.border-profile-input>
-                    {{ $userLogin->info_account ?? '...' }}
-                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
-                </x-profile.border-profile-input>
+                    <span x-show="!isEditingInfo"> {{ $userLogin->info_account ?? '...' }}</span>
+                    <x-input.profile-input x-show="isEditingInfo" @keydown.enter="isEditingInfo = false"
+                        value="   {{ $userLogin->info_account ?? '...' }}" autofocus />
 
-                <p class="mt-4">
-                    Info akun ini akan ditampilkan ke kontak hellochat Anda.
-                </p>
+                    <x-button.rounded-button x-show="isEditingInfo" class="float-right mt-3 bg-green-700">
+                        done
+                    </x-button.rounded-button>
+                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"
+                        x-on:click="isEditingInfo = !isEditingInfo" x-show="!isEditingInfo"></i>
+                </x-profile.border-profile-input>
+            </div>
+        </div> --}}
+        <div class="ml-5 mt-5 mr-5" x-data="{ isEditingName: false, isEditingInfo: false }">
+            <div class="name-profile">
+                <h5 class="text-xl font-bold mb-4">
+                    Nama Anda
+                </h5>
+                <div>
+                    <x-profile.border-profile-input>
+                        <span x-show="!isEditingName">{{ $userLogin->Users->name }}</span>
+                        <x-input.profile-input x-show="isEditingName"
+                            @keydown.enter="isEditingName = false; isEditingInfo = true"
+                            value="{{ $userLogin->Users->name }}" autofocus />
+
+                        <x-button.rounded-button x-show="isEditingName" class="float-right mt-3 bg-green-700">
+                            done
+                        </x-button.rounded-button>
+                        <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"
+                            x-on:click="isEditingName = !isEditingName; isEditingInfo = false"
+                            x-show="!isEditingName"></i>
+                    </x-profile.border-profile-input>
+                </div>
+            </div>
+
+            <div class="info-profile mt-10">
+                <h5 class="text-xl font-bold mb-4">
+                    Info Akun
+                </h5>
+
+                <x-profile.border-profile-input>
+                    <span x-show="!isEditingInfo"> {{ $userLogin->info_account ?? '...' }}</span>
+                    <x-input.profile-input x-show="isEditingInfo"
+                        @keydown.enter="isEditingInfo = false; isEditingName = true"
+                        value="   {{ $userLogin->info_account ?? '...' }}" autofocus />
+
+                    <x-button.rounded-button x-show="isEditingInfo" class="float-right mt-3 bg-green-700">
+                        done
+                    </x-button.rounded-button>
+                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"
+                        x-on:click="isEditingInfo = !isEditingInfo; isEditingName = false" x-show="!isEditingInfo"></i>
+                </x-profile.border-profile-input>
             </div>
         </div>
+
     </div>
 </div>

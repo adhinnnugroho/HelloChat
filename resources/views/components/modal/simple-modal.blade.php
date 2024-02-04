@@ -16,7 +16,10 @@
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             class="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform
             rounded-lg shadow-xl 2xl:max-w-2xl"
-            x-bind:class="{ 'bg-black text-white border-b-gray-500': $store.darkMode.on }">
+            x-bind:class="{
+                'bg-black text-white border-b-gray-500': $store.darkMode.on,
+                'bg-white text-black border-b-gray-400': !$store.darkMode.on
+            }">
             <div class="flex items-center justify-between space-x-4">
                 <h1 class="text-xl font-medium text-gray-800 " x-bind:class="{ ' text-white ': $store.darkMode.on }">
                     {{ $title }}

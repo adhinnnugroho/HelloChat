@@ -11,7 +11,9 @@ use Illuminate\Support\Str;
 
 class ListContact extends Component
 {
-
+    public $listeners = [
+        'setting:profileImageUpdated' => '$refresh',
+    ];
     public $contact;
     public function render()
     {

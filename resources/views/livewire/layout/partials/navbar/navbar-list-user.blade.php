@@ -11,11 +11,8 @@
             @endif
         </div>
         <div class="float-right" x-data="{ isOpen: false }">
-            <div class="grid grid-cols-2 gap-3 mt-1 relative">
-                <!-- Tambahkan aksi x-on:click untuk menampilkan/sembunyikan menu -->
+            <div class="grid grid-cols-2 gap-3 mt-1 relative" wire:ignore>
                 <i class="fa fa-ellipsis-vertical text-3xl cursor-pointer" x-on:click="isOpen = !isOpen"></i>
-
-                <!-- Menu konteks atau dropdown -->
                 <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-0 mt-8">
                     @livewire('new-contact.add-new-contact')
                     <li class="p-2 hover:bg-gray-300 cursor-pointer"

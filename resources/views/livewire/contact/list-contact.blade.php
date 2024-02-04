@@ -4,7 +4,8 @@
 
         <x-input.border-input type="text" placeholder="search Contact" />
 
-        @foreach ($contact as $item)
+
+        @forelse ($contact as $item)
             <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
                 x-on:click="selectedContact = '{{ $item->uuid }}'"
                 wire:click="createNewChatRoom('{{ $item->EncrytionsId($item->id) }}')">
@@ -21,6 +22,10 @@
                     <span class="text-gray-500">{{ $item->user->info_account }}</span>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <h5 class="text-center text-lg text-gray-500">
+                Contact not found
+            </h5>
+        @endforelse
     </div>
 </div>

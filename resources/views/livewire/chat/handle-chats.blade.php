@@ -1,8 +1,8 @@
 <div>
-    @if (count($user) > 0)
-        @foreach ($user as $key => $item)
+    @if (!is_null($selected_contact))
+        @forelse ($user as $key => $item)
             <template x-if="selectedContact == '{{ $item->uuid_list_contact }}'">
-                <div class="flex flex-col justify-between">
+                <div class="flex flex-col justify-between" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">
                     <div class="border-b-2 p-3 fixed w-screen"
                         x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
                         <div class="flex flex-wrap justify-between ">
@@ -25,7 +25,13 @@
                     </div>
                 </div>
             </template>
-        @endforeach
+        @empty
+            <div class="">
+                <h5 class="text-center text-2xl items-center h-screen">
+                    Hallo Chat
+                </h5>
+            </div>
+        @endforelse
     @else
         <div class="">
             <h5 class="text-center text-2xl items-center h-screen">

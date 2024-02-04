@@ -23,8 +23,9 @@
                     </div>
                 </div>
             </div>
-            <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-6 -mt-24">
-                @livewire('setting.profile.partials.show-profile-image')
+            <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-6 -mt-24"
+                wire:key="profile-{{ $userLogin->id }}" wire:ignore>
+                @livewire('setting.profile.partials.show-profile-image', key($userLogin->id))
                 @livewire(
                     'setting.profile.partials.upload-new-profile-image',
                     [

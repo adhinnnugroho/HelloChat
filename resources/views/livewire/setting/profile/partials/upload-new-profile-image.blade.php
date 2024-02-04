@@ -1,5 +1,6 @@
 <div>
-    <li class="p-2 hover:bg-gray-300 cursor-pointer" id="upload-button">
+    <li class="p-2 hover:bg-gray-300 cursor-pointer" id="upload-button"
+        x-bind:class="{ 'hover:text-black ': $store.darkMode.on }">
         <a wire:loading wire:target="image">Loading</a>
         <a wire:loading.remove wire:target="image">Upload Foto</a>
     </li>

@@ -1,15 +1,7 @@
 <div>
     <div class="flex flex-col border-r-2 overflow-y-auto" style="height: 50rem">
         <x-navbar.navbar-back title="Setting" icons="fa-arrow-left" actions="openSettingSidebar" />
-
-        <div class="py-4 px-2">
-            <input type="text" placeholder="Cari di setelan"
-                class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
-                x-bind:class="{ 'bg-black text-white border-gray-600': $store.darkMode.on }" />
-        </div>
-
-
-
+        <x-input.border-input type="text" placeholder="Search Setting" />
         @livewire('setting.list-setting')
     </div>
 </div>

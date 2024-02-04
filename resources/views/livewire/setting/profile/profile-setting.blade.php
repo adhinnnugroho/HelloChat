@@ -42,17 +42,16 @@
                 <h5 class="text-xl font-bold mb-4">
                     Nama Anda
                 </h5>
-
-
-                <div class="border border-b-gray-500 pb-1"
-                    x-bind:class="{
-                        'bg-black text-white border-black border-b-gray-600': $store.darkMode.on,
-                        'bg-white border-white text-black border-b-gray-400':
-                            !$store.darkMode.on
-                    }">
-                    {{ $userLogin->Users->name }}
-                    <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
+                <div x-data="{ isEditing: false }">
+                    <x-profile.border-profile-input>
+                        <span x-show="!isEditing">{{ $userLogin->Users->name }}</span>
+                        <x-input.profile-input x-show="isEditing" @keydown.enter="isEditing = false"
+                            value="{{ $userLogin->Users->name }}" autofocus />
+                        <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"
+                            x-on:click="isEditing = !isEditing"></i>
+                    </x-profile.border-profile-input>
                 </div>
+
                 <p class="mt-4">
                     Ini bukan nama pengguna atau PIN Anda. Nama ini akan ditampilkan ke kontak hellochat Anda.
                 </p>
@@ -63,16 +62,14 @@
                     Info Akun
                 </h5>
 
-
-                <div class="border border-b-gray-500 pb-1"
-                    x-bind:class="{
-                        'bg-black text-white border-black border-b-gray-600': $store.darkMode.on,
-                        'bg-white border-white text-black border-b-gray-400':
-                            !$store.darkMode.on
-                    }">
+                <x-profile.border-profile-input>
                     {{ $userLogin->info_account ?? '...' }}
                     <i class="fas fa-edit float-right lg:mr-2 lg:mt-1 cursor-pointer"></i>
-                </div>
+                </x-profile.border-profile-input>
+
+                <p class="mt-4">
+                    Info akun ini akan ditampilkan ke kontak hellochat Anda.
+                </p>
             </div>
         </div>
     </div>

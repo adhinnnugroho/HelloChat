@@ -18,19 +18,22 @@
                 </div>
             </div>
 
-            <div x-show="ListContact">
+            <x-sidebar.sidebar show="ListContact">
                 @livewire('contact.list-contact')
-            </div>
+            </x-sidebar.sidebar>
 
-            <div x-show="!openSettingProfile">
+            <x-sidebar.sidebar show="!openSettingProfile" code="openSettingSidebar">
+                @livewire('setting.sidebar')
+            </x-sidebar.sidebar>
+            {{-- <div x-show="!openSettingProfile">
                 <div class="" x-show="openSettingSidebar">
-                    @livewire('setting.sidebar')
                 </div>
-            </div>
+            </div> --}}
 
-            <div x-show="openSettingProfile">
+            <x-sidebar.sidebar show="openSettingProfile">
                 @livewire('setting.profile.profile-setting')
-            </div>
+            </x-sidebar.sidebar>
+
         </div>
         <!-- end chat list -->
         <!-- message -->

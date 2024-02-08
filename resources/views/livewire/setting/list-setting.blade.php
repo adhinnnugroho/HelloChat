@@ -1,4 +1,4 @@
-<div>
+<div class="overflow-x-hidden">
     <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer dark:bg-black dark:text-white"
         x-on:click="openSettingProfile = !openSettingProfile">
         <div class="w-1/5 ml-4">

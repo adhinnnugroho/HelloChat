@@ -26,7 +26,6 @@
             border-radius: 50%;
         }
 
-        /* The css styles for `outline` do not follow `border-radius` on iOS/Safari (#979). */
         .cropper-view-box {
             outline: 0;
             box-shadow: 0 0 0 1px white;
@@ -37,9 +36,6 @@
 </head>
 
 <body class=" max-h-screen ">
-
-    @include('layouts.navigation')
-
     <!-- Page Content -->
     <main>
         {{ $slot }}

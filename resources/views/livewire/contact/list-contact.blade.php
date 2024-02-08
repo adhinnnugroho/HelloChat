@@ -1,5 +1,5 @@
 <div>
-    <div class="flex flex-col border-r-2 overflow-y-auto">
+    <div class="flex flex-col  overflow-y-auto">
         <x-navbar.navbar-back title="Contact" icons="fa-arrow-left" actions="ListContact" />
 
         <x-input.border-input type="text" placeholder="search Contact" />

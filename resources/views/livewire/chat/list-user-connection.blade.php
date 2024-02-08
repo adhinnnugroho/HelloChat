@@ -25,6 +25,7 @@
 
     </div>
     <!-- end chat list -->
+
     <!-- message -->
     <div class="lg:w-full w-screen" x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
         <div class="overflow-y-auto">
@@ -32,6 +33,8 @@
         </div>
     </div>
     <!-- end message -->
+
+
     <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
         @foreach ($user as $key => $item)
             <template x-if="selectedContact == '{{ $item->uuid_list_contact }}'">

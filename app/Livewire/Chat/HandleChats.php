@@ -33,6 +33,8 @@ class HandleChats extends Component
 
     public function handlechats($selected_contact)
     {
+
+        dd($selected_contact);
         $this->user = ChatRoom::where([
             'this_users' => $selected_contact
         ])->orWhere([

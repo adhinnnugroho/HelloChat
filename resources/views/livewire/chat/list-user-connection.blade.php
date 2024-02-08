@@ -1,5 +1,6 @@
 <div x-data="{
     openSidebar: false,
+    selectedContact: '',
     openSettingSidebar: false,
     openSettingProfile: false,
     ListContact: false

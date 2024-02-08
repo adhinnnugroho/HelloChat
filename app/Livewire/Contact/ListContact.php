@@ -37,9 +37,7 @@ class ListContact extends Component
         ])->first();
 
         $data_userLogin = Auth::user();
-
-        $checking_data = ChatRoom::checkingAddnewChatRoom($data_list_contact->contact_user_id);
-
+        $checking_data = ChatRoom::checkingAddnewChatRoom($selectedContact);
         if (is_null($checking_data)) {
             ChatRoom::create([
                 'uuid' => $uuid,

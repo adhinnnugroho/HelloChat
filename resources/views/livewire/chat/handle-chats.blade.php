@@ -26,17 +26,9 @@
                 </div>
             </template>
         @empty
-            <div class="">
-                <h5 class="text-center text-2xl items-center h-screen">
-                    Hallo Chat
-                </h5>
-            </div>
+            <x-page.welcome-page />
         @endforelse
     @else
-        <div class="">
-            <h5 class="text-center text-2xl items-center h-screen">
-                Hallo Chat
-            </h5>
-        </div>
+        <x-page.welcome-page />
     @endif
 </div>

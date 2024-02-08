@@ -1,7 +1,11 @@
 <div>
     <div class="fixed overflow-y-auto lg:w-2/7 w-full"
         x-bind:class="{ 'bg-black text-white border-blac': $store.darkMode.on }">
-        <div class="flex flex-col lg:border-gray-600 lg:border-r-2 h-screen">
+        <div class="flex flex-col  h-screen"
+            x-bind:class="{
+                'lg:border-gray-500 lg:border-r-2': $store.darkMode.on,
+                'lg:border-gray-300 lg:border-r-2': !$store.darkMode.on
+            }">
             @livewire('layout.partials.navbar.navbar-list-user')
             <x-input.border-input type="text" placeholder="search chatting" wire:model.live="search_chat" />
             @if (count($user) > 0)

@@ -17,7 +17,7 @@
                     @livewire('new-contact.add-new-contact')
                     <li class="p-2 hover:bg-gray-300 cursor-pointer"
                         x-bind:class="{ 'hover:text-black ': $store.darkMode.on }"
-                        x-on:click="openSettingSidebar = !openSettingSidebar">
+                        x-on:click="openSettingSidebar = !openSettingSidebar, isOpen = false">
                         <a href="#">Setelan</a>
                     </li>
                     <a href="{{ route('logout') }}" x-bind:class="{ 'hover:text-black ': $store.darkMode.on }">

@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class BorderInput extends Component
 {
+    public $label;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($label = null)
     {
-        //
+        $this->label = $label;
     }
 
     /**

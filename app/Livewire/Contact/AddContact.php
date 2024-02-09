@@ -10,4 +10,8 @@ class AddContact extends Component
     {
         return view('livewire.contact.add-contact');
     }
+
+    public function validationFrom()
+    {
+    }
 }

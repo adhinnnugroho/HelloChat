@@ -3,13 +3,7 @@
     <div class="relative mt-5" x-data="{ isOpen: false }">
         <div class="relative w-44 h-44 mx-auto rounded-full overflow-hidden cursor-pointer group"
             x-on:click="isOpen = !isOpen">
-            @if (stripos($userLogin->avatar, 'images/') !== false)
-                <img src="{{ asset('/storage/' . $userLogin->avatar) }}" alt="User Profile"
-                    class="group-hover:opacity-50 object-cover w-full h-full" />
-            @else
-                <img src="{{ $userLogin->avatar }}" alt="User Profile"
-                    class="group-hover:opacity-50 object-cover w-full h-full" />
-            @endif
+            <x-image.show-image :image="$userLogin->avatar" class="group-hover:opacity-50 object-cover w-full h-full" />
             <div class="absolute inset-0 flex items-center justify-center"
                 x-bind:class="{
                     'bg-black bg-opacity-50 opacity-100 transition-opacity': isOpen,

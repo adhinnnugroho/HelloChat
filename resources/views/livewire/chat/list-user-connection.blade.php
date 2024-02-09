@@ -1,18 +1,24 @@
 <x-chats.chats-layouts>
     <!-- chat list -->
     <div class="lg:w-2/5 w-screen">
-        <div x-show="!ListContact">
-            <div x-show="!openSettingProfile">
-                <div class="" x-show="!openSettingSidebar">
-                    @livewire('chat.list-chat', [
-                        'user' => $user,
-                    ])
+        <div x-show="!AddContact">
+            <div x-show="!ListContact">
+                <div x-show="!openSettingProfile">
+                    <div class="" x-show="!openSettingSidebar">
+                        @livewire('chat.list-chat', [
+                            'user' => $user,
+                        ])
+                    </div>
                 </div>
             </div>
         </div>
 
         <x-sidebar.sidebar show="ListContact">
             @livewire('contact.list-contact')
+        </x-sidebar.sidebar>
+
+        <x-sidebar.sidebar show="AddContact">
+            @livewire('contact.add-contact')
         </x-sidebar.sidebar>
 
         <x-sidebar.sidebar show="!openSettingProfile" code="openSettingSidebar">

@@ -8,7 +8,7 @@
             <div class="grid grid-cols-2 gap-3 mt-1 relative" wire:ignore>
                 <i class="fa fa-ellipsis-vertical text-3xl cursor-pointer" x-on:click="isOpen = !isOpen"></i>
                 <x-menu.drop-down-menu id="show-profile-setting" show_id="isOpen" class="right-0 mt-8">
-                    @livewire('new-contact.add-new-contact')
+                    {{-- @livewire('new-contact.add-new-contact') --}}
                     <x-menu.list-menu x-on:click="openSettingSidebar = !openSettingSidebar, isOpen = false">
                         Setelan
                     </x-menu.list-menu>

@@ -31,12 +31,7 @@ class AddContact extends Component
 
     public function mount()
     {
-        $this->fill([
-            'contact' => [
-                'name' => null,
-                'code' => null
-            ]
-        ]);
+        $this->resetVariabel();
     }
 
     public function rules()
@@ -51,28 +46,19 @@ class AddContact extends Component
     public function validationFrom()
     {
         $validated = $this->validate();
-        $this->submit();
+        $user_token = User::where([
+            'user_token' => $this->contact['code']
+        ])->first();
+
+        $this->validationFromStage2($user_token);
     }
 
     public function submit()
     {
         $uuid = Str::uuid();
-
         $user_token = User::where([
             'user_token' => $this->contact['code']
         ])->first();
-
-
-        if (is_null($user_token)) {
-            $alert = [
-                'status' => 'error',
-                'title' => '',
-                'message' => 'code  tidak di temukan',
-            ];
-
-            $this->setAlert($alert['status'], $alert['title'], $alert['message']);
-            return;
-        }
 
         $data_userLogin = Auth::user();
 
@@ -107,10 +93,69 @@ class AddContact extends Component
             'title' => '',
             'message' => 'Kontak Berhasil Ditambahkan',
         ];
+        $this->resetVariabel();
 
         $this->setAlert($alert['status'], $alert['title'], $alert['message']);
 
         $this->dispatch('setting:profileImageUpdated');
+    }
+
+    private function validationFromStage2($user_token)
+    {
+
+        if (is_null($user_token)) {
+            $alert = [
+                'status' => 'error',
+                'title' => '',
+                'message' => 'code  tidak di temukan',
+            ];
+
+            return $this->setAlert($alert['status'], $alert['title'], $alert['message']);
+        }
+
+
+        $checking_code_same_with_code_user_login = User::where([
+            'user_token' => $this->contact['code'],
+            'id' => Auth::user()->id
+        ])->first();
+
+
+        if (!is_null($checking_code_same_with_code_user_login)) {
+            $alert = [
+                'status' => 'error',
+                'title' => '',
+                'message' => 'Silahkan masukan code user yang berbeda dengan code user anda',
+            ];
+            return $this->setAlert($alert['status'], $alert['title'], $alert['message']);
+        }
+
+
+
+        $checking_contact_found_or_not = ListContact::where([
+            'id_user_login' => Auth::user()->id,
+            'contact_user_id' => $user_token->id
+        ])->first();
+
+        if (!is_null($checking_contact_found_or_not)) {
+            $alert = [
+                'status' => 'error',
+                'title' => '',
+                'message' => 'Kontak Sudah Ditambahkan',
+            ];
+            return $this->setAlert($alert['status'], $alert['title'], $alert['message']);
+        }
+
+        $this->submit();
+    }
+
+    private function resetVariabel()
+    {
+        $this->fill([
+            'contact' => [
+                'name' => null,
+                'code' => null
+            ]
+        ]);
     }
 
 

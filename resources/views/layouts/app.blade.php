@@ -50,6 +50,7 @@
     <script src="{{ asset('/assets/js/custom-function.js') }}"></script>
     <script src="{{ asset('/assets/js/crop/crop.js') }}"></script>
 
+    <x-livewire-alert::scripts />
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.store('darkMode', {

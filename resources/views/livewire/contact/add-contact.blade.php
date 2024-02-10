@@ -3,8 +3,15 @@
 
     <div class="mt-10">
         <div wire:loading.remove wire:target="validationFrom">
-            <x-input.border-input type="text" placeholder="Name" label="Name" />
-            <x-input.border-input type="text" placeholder="arun_w32" label="Code Hello" />
+            <x-input.border-input type="text" placeholder="Name" label="Name" wire:model.defer="contact.name" />
+            @error('contact.name')
+                <span class="error text-red-500 ml-3">{{ $message }}</span>
+            @enderror
+            <x-input.border-input type="text" placeholder="arun_w32" label="Code Hello"
+                wire:model.defer="contact.code" />
+            @error('contact.code')
+                <span class="error text-red-500 ml-3">{{ $message }}</span>
+            @enderror
             <div class="p-3">
                 <x-button.rounded-button class="text-ubuntu text-base w-full mt-5" color="gold"
                     wire:click="validationFrom">
@@ -20,9 +27,7 @@
         </div>
 
         <div wire:loading wire:target="validationFrom">
-            <div class="w-full lg:ml-4 p-2">
-                <img src="{{ asset('/hello-media/loading.gif') }}" alt="">
-            </div>
+            <x-loading.rocket-loading />
         </div>
 
     </div>

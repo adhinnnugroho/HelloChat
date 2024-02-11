@@ -12,10 +12,6 @@
     @endif
 
 
-
-
-
-
     <div class="w-full p-4 bottom-0 fixed"
         x-bind:class="{
             'bg-black text-white border border-black border-t-gray-600': $store.darkMode.on,

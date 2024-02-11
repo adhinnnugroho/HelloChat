@@ -60,6 +60,8 @@ class ListChat extends Component
         ])->orWhere([
             'with_users' => $data_userLogin->id
         ])->get();
+
+        $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }
 
     public function updatedSearchChat()

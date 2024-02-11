@@ -1,5 +1,5 @@
 <div>
-    <div class="flex px-5 flex-col mt-24 flex-grow overflow-y-auto mb-28">
+    <div class="flex px-5 flex-col mt-24 flex-grow overflow-y-auto h-screen">
         <div class="flex-grow overflow-y-auto">
             @foreach ($chat as $index => $item)
                 @foreach ($item->Messages as $message)

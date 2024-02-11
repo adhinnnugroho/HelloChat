@@ -10,36 +10,35 @@
             <x-input.border-input type="text" placeholder="search chatting" wire:model.live="search_chat" />
             @if (count($user) > 0)
                 @foreach ($user as $item)
-                    @if (!empty($item->chats->id))
-                        <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                            wire:click.stop="readMessage('{{ $item->EncrytionsChatId($item->chats->lastMessage->chat_id) }}')"
-                            x-on:click="selectedContact = '{{ $item->uuid_list_contact }}'">
-                            <div class="w-1/4">
-                                <img src="{{ $item->getAvatar() }}" class="object-cover h-12 w-12 ml-5 rounded-full"
-                                    alt="" />
-                            </div>
-                            <div class="w-full">
-                                <div
-                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'font-semibold' }} text-lg ">
-                                    {{ $item->getName() }}
-                                </div>
-                                <span
-                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }}">
-                                    {{ implode('..', str_split($item->chats->lastMessage->boddy_message, 20)) }}
-                                </span>
-                                <div
-                                    class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
-                                    {{ date('H:i', strtotime($item->chats->lastMessage->created_at)) }}
-                                </div>
-                                @if ($item->chats->unreadMessagesCount($item->chats->id) > 0)
+                    <div x-data="{ unreadMessagesCount: {{ $item->chats->unreadMessagesCount($item->chats->id) }} }">
+                        @if (!empty($item->chats->id))
+                            <x-chats.chat-view image="{{ $item->getAvatar() }}"
+                                unreadMessagesCount="{{ $item->chats->unreadMessagesCount($item->chats->id) }}"
+                                name="{{ $item->getName() }}"
+                                wire:click.stop="readMessage('{{ $item->EncrytionsChatId($item->chats->lastMessage->chat_id) }}')"
+                                x-on:click="selectedContact = '{{ $item->uuid_list_contact }}'">
+                                <div class="w-full">
                                     <div
-                                        class="float-right mt-1 bg-green-700 rounded-full text-white w-6 h-6 text-center lg:-mr-7">
-                                        {{ $item->chats->unreadMessagesCount($item->chats->id) }}
+                                        class="{{ $unreadMessagesCount > 0 ? 'text-white font-bold' : 'font-semibold' }} text-lg ">
+                                        {{ $name }}
                                     </div>
-                                @endif
-                            </div>
-                        </div>
-                    @endif
+                                    <span
+                                        class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'font-bold' : 'text-gray-500' }}">
+                                        {{ implode('..', str_split($item->chats->lastMessage->boddy_message, 20)) }}
+                                    </span>
+                                    <div
+                                        class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
+                                        {{ date('H:i', strtotime($item->chats->lastMessage->created_at)) }}
+                                    </div>
+                                    <div x-show="unreadMessagesCount > 0">
+                                        <x-border.rounded-border>
+                                            {{ $item->chats->unreadMessagesCount($item->chats->id) }}
+                                        </x-border.rounded-border>
+                                    </div>
+                                </div>
+                            </x-chats.chat-view>
+                        @endif
+                    </div>
                 @endforeach
             @else
                 <span class="text-gray-400 text-center mt-5">Data not found</span>

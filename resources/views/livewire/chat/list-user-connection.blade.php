@@ -82,6 +82,12 @@
                     stopRecording() {
                         if (this.isRecording) {
                             this.mediaRecorder.stop();
+
+                            const blob = new Blob(this.audioChunks, {
+                                type: 'audio/wav'
+                            });
+                            this.audioURL = URL.createObjectURL(blob);
+                            Livewire.dispatch('savedAudio', this.audioURL);
                             this.isRecording = false;
                         }
                     },

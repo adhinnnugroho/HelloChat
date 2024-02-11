@@ -15,6 +15,7 @@ class HistoryChat extends Component
 {
     public $listeners = [
         'savedChat' => 'savedChat',
+        'savedAudio' => 'savedAudio',
     ];
 
     public $account_data;
@@ -91,5 +92,10 @@ class HistoryChat extends Component
         })->first();
 
         $this->dispatch('sendnewmessage', $chat_room->id);
+    }
+
+    public function saveAudio($audioData)
+    {
+        dd($audioData);
     }
 }

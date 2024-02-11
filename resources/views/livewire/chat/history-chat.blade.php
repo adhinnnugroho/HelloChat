@@ -15,6 +15,7 @@
 
 
 
+
     <div class="w-full p-4 bottom-0 fixed"
         x-bind:class="{
             'bg-black text-white border border-black border-t-gray-600': $store.darkMode.on,
@@ -37,7 +38,23 @@
                     Stop Recording
                 </button>
                 <audio controls :src="audioURL" class="mt-4" x-show="audioURL"></audio>
+            </div> --}}
 
+
+            <div x-data="voiceNote()">
+                <template x-if="!isRecording">
+                    <x-icons.show-icons icons="microphone" actions="startRecording" />
+                </template>
+                <template x-if="isRecording">
+                    <div x-data="{ seconds: 0, timer: null }" x-init="timer = setInterval(() => { seconds++; }, 1000)">
+                        <x-icons.show-icons icons="circle-notch fa-spin" class="text-red-600 " />
+                        {{-- <i
+                            class="fas fa-circle-notch fa-spin text-2xl float-right mt-1 fixed right-7 text-red-500 cursor-pointer"></i> --}}
+                        <span x-text="seconds + ' detik'"
+                            class="text-gray-500 text-sm absolute top-0 right-14 mt-3"></span>
+                        <x-icons.show-icons icons="stop-circle" actions="stopRecording" />
+                    </div>
+                </template>
                 <div x-show="showMicNotFound">
                     <div x-data="{ open: false }" x-init="open = !open;">
                         <x-modal.simple-modal id="feedback-modal" show_id="open" title="Microphone Not Found"
@@ -45,69 +62,7 @@
                         </x-modal.simple-modal>
                     </div>
                 </div>
-            </div> --}}
-            <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i>
+            </div>
         </div>
     </div>
-
-    @push('scripts')
-        <script>
-            function submitForm() {
-                Livewire.dispatch('savedChat')
-            }
-        </script>
-        <script src="{{ asset('/assets/js/textarea-animations.js') }}"></script>
-
-        <script>
-            function voiceNote() {
-                return {
-                    mediaRecorder: null,
-                    audioChunks: [],
-                    isRecording: false,
-                    audioURL: null,
-                    showMicNotFound: false,
-
-                    startRecording() {
-                        navigator.mediaDevices.getUserMedia({
-                                audio: true
-                            })
-                            .then(stream => {
-                                this.mediaRecorder = new MediaRecorder(stream);
-
-                                this.mediaRecorder.ondataavailable = event => {
-                                    if (event.data.size > 0) {
-                                        this.audioChunks.push(event.data);
-                                    }
-                                };
-
-                                this.mediaRecorder.onstop = () => {
-                                    const blob = new Blob(this.audioChunks, {
-                                        type: 'audio/wav'
-                                    });
-                                    this.audioURL = URL.createObjectURL(blob);
-                                };
-
-                                this.mediaRecorder.start();
-                                this.isRecording = true;
-                            })
-                            .catch(error => {
-                                console.error('Error accessing microphone:', error);
-                                this.showMicNotFound = true;
-                            });
-                    },
-
-                    stopRecording() {
-                        if (this.isRecording) {
-                            this.mediaRecorder.stop();
-                            this.isRecording = false;
-                        }
-                    },
-
-                    hideMicNotFound() {
-                        this.showMicNotFound = false;
-                    },
-                };
-            }
-        </script>
-    @endpush
 </div>

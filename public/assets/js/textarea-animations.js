@@ -6,7 +6,7 @@ function adjustInputHeight(event) {
     var cursorPosition = getCaretCharacterOffsetWithin(input);
     var threshold = 10;
     var chunkSize = 50;
-    console.log(input.scrollHeight + "px");
+    // console.log(input.scrollHeight + "px");
 
     if (event.key === "Backspace" || event.keyCode === 8) {
         var lines = input.value.split("\n");

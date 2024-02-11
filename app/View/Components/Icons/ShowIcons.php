@@ -8,15 +8,16 @@ use Illuminate\View\Component;
 
 class ShowIcons extends Component
 {
-    public $icons, $positions, $actions;
+    public $icons, $positions, $actions, $color;
     /**
      * Create a new component instance.
      */
-    public function __construct($icons, $positions = null, $actions = null)
+    public function __construct($icons, $positions = null, $actions = null, $color = null)
     {
         $this->icons = $icons;
         $this->positions = $positions;
         $this->actions = $actions;
+        $this->color = $color;
     }
 
     /**

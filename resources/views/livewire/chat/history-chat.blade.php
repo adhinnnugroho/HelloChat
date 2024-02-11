@@ -1,6 +1,9 @@
 <div>
-
     @if (is_null($history_chat))
+        <div class="flex px-5 flex-col mt-24 flex-grow overflow-y-auto h-screen">
+            <div class="flex-grow overflow-y-auto">
+            </div>
+        </div>
     @else
         @livewire('chats.handle-value-chat', [
             'chat' => $history_chat->id,
@@ -17,10 +20,10 @@
         <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}' }">
             <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
 
-            {{-- <textarea rows="1" class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
+            <textarea rows="1" class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
                 placeholder="Ketik pesan Anda..." id="send_message" x-ref="input" x-model="inputValue" wire:model.lazy="chatvalue"
                 @keydown.enter="submitForm" x-on:keyup="adjustInputHeight" style="height: 50px;">
-            </textarea> --}}
+            </textarea>
 
 
             <div class="" x-data="voiceNote()">
@@ -45,6 +48,8 @@
             {{-- <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i> --}}
         </div>
     </div>
+
+
 
     @push('scripts')
         <script>

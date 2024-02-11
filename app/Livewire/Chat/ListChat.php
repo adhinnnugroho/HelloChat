@@ -29,7 +29,9 @@ class ListChat extends Component
             'this_users' => $data_userLogin->id
         ])->orWhere([
             'with_users' => $data_userLogin->id
-        ])->get();
+        ])->whereHas('chats', function ($query) {
+            $query->whereNotNull('chats.id');
+        })->get();
     }
 
     public function refreshChat($chat_room)

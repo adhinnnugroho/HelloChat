@@ -12,9 +12,9 @@
             List Contact in Hello Chat
         </h5>
         @forelse ($contact as $item)
-            <x-contact.contact_view image="{{ $item->User->UserDetails->avatar }}" name="{{ $item->user->name }}"
+            <x-contact.contact_view image="{{ $item->User->UserDetails->avatar }}" name="{{ $item->name }}"
                 info="{{ $item->user->info_account }}" x-on:click="selectedContact = '{{ $item->uuid }}'"
-                wire:click="createNewChatRoom('{{ $item->EncrytionsId($item->id) }}')" />
+                wire:click="setSelectedContact('{{ $item->uuid }}')" />
         @empty
             <h5 class="text-center text-lg text-gray-500">
                 Contact not found

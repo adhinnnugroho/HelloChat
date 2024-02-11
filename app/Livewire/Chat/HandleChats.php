@@ -12,8 +12,9 @@ class HandleChats extends Component
     public $selected_contact, $count_message_not_read;
     public $chatvalue = null;
     public $listeners = [
+        'HandleChat::SetSelectedContact' => 'setSelectedContact',
         'refreshNavbar' => '$refresh',
-        'startedChat'   => 'handlechats'
+        'startedChat'   => 'handlechats',
     ];
 
     public function render()
@@ -21,6 +22,10 @@ class HandleChats extends Component
         return view('livewire.chat.handle-chats');
     }
 
+    public function setSelectedContact($uuid_contact)
+    {
+        $this->selected_contact = $uuid_contact;
+    }
     public function mount()
     {
         $data_userLogin = Auth::user();
@@ -33,8 +38,6 @@ class HandleChats extends Component
 
     public function handlechats($selected_contact)
     {
-
-        dd($selected_contact);
         $this->user = ChatRoom::where([
             'this_users' => $selected_contact
         ])->orWhere([

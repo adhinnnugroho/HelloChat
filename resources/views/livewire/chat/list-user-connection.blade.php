@@ -39,15 +39,4 @@
         </div>
     </div>
     <!-- end message -->
-
-
-    <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
-        @foreach ($user as $key => $item)
-            <template x-if="selectedContact == '{{ $item->uuid_list_contact }}'">
-                @livewire('history-chat.sidebar-history-chat', [
-                    'selectedContactId' => $item->uuid_list_contact,
-                ])
-            </template>
-        @endforeach
-    </div>
 </x-chats.chats-layouts>

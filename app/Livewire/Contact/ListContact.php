@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class ListContact extends Component
 {
     public $listeners = [
-        'setting:profileImageUpdated' => '$refresh',
+        'setting:profileImageUpdated' => 'resetVariabel',
     ];
     public $contact;
     public function render()
@@ -28,25 +28,16 @@ class ListContact extends Component
         ])->get();
     }
 
-    public function createNewChatRoom($selectedContact)
+    public function resetVariabel()
     {
-        $uuid = Str::uuid();
-        $selectedContact_id = Encryption::decryptId($selectedContact);
-        $data_list_contact = modelListContact::where([
-            'id' => $selectedContact_id
-        ])->first();
-
         $data_userLogin = Auth::user();
-        $checking_data = ChatRoom::checkingAddnewChatRoom($selectedContact);
-        if (is_null($checking_data)) {
-            ChatRoom::create([
-                'uuid' => $uuid,
-                'uuid_list_contact' => $data_list_contact->uuid,
-                'this_users' => $data_userLogin->id,
-                'with_users' => $data_list_contact->contact_user_id,
-            ]);
-        }
+        $this->contact = modelListContact::where([
+            'id_user_login' => $data_userLogin->id
+        ])->get();
+    }
 
-        $this->dispatch('startedChat', $selectedContact_id);
+    public function setSelectedContact($contact_id)
+    {
+        $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }
 }

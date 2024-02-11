@@ -45,7 +45,7 @@ class AddContact extends Component
 
     public function validationFrom()
     {
-        $validated = $this->validate();
+        $this->validate();
         $user_token = User::where([
             'user_token' => $this->contact['code']
         ])->first();
@@ -56,6 +56,7 @@ class AddContact extends Component
     public function submit()
     {
         $uuid = Str::uuid();
+        $chat_romm_uuid = Str::uuid();
         $user_token = User::where([
             'user_token' => $this->contact['code']
         ])->first();
@@ -73,7 +74,7 @@ class AddContact extends Component
         $checking_data = ChatRoom::checkingAddnewChatRoom($user_token->id);
         if (is_null($checking_data)) {
             $chat_romm_id =  ChatRoom::create([
-                'uuid' => $uuid,
+                'uuid' => $chat_romm_uuid,
                 'uuid_list_contact' => $dataContact->uuid,
                 'this_users' => $data_userLogin->id,
                 'with_users' => $dataContact->contact_user_id,

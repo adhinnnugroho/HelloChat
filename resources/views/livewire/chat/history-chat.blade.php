@@ -15,18 +15,19 @@
 
 
 
-    <div class="border-b-2 w-full p-4 bottom-0 fixed"
-        x-bind:class="{ 'bg-black text-white border-black': $store.darkMode.on }">
+    <div class="w-full p-4 bottom-0 fixed"
+        x-bind:class="{
+            'bg-black text-white border border-black border-t-gray-600': $store.darkMode.on,
+            'border border-white border-t-gray-300': !$store.darkMode.on
+        }">
         <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}' }">
             <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
 
-            <textarea rows="1" class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
-                placeholder="Ketik pesan Anda..." id="send_message" x-ref="input" x-model="inputValue" wire:model.lazy="chatvalue"
-                @keydown.enter="submitForm" x-on:keyup="adjustInputHeight" style="height: 50px;">
-            </textarea>
+            <x-text-area.simple-text-area type="text" placeholder="Ketik pesan Anda..." id="send_message" x-ref="input"
+                x-model="inputValue" wire:model.lazy="chatvalue" @keydown.enter="submitForm"
+                x-on:keyup="adjustInputHeight" style="height: 50px;" />
 
-
-            <div class="" x-data="voiceNote()">
+            {{-- <div class="" x-data="voiceNote()">
                 <button @click="startRecording" :disabled="isRecording"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Start Recording
@@ -44,12 +45,10 @@
                         </x-modal.simple-modal>
                     </div>
                 </div>
-            </div>
-            {{-- <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i> --}}
+            </div> --}}
+            <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i>
         </div>
     </div>
-
-
 
     @push('scripts')
         <script>

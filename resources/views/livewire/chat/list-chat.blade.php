@@ -13,28 +13,23 @@
                     <div x-data="{ unreadMessagesCount: {{ $item->chats->unreadMessagesCount($item->chats->id) }} }">
                         @if (!empty($item->chats->id))
                             <x-chats.chat-view image="{{ $item->getAvatar() }}"
-                                unreadMessagesCount="{{ $item->chats->unreadMessagesCount($item->chats->id) }}"
-                                name="{{ $item->getName() }}"
                                 wire:click.stop="readMessage('{{ $item->EncrytionsChatId($item->chats->lastMessage->chat_id) }}')"
                                 x-on:click="selectedContact = '{{ $item->uuid_list_contact }}'">
                                 <div class="w-full">
-                                    <div
-                                        class="{{ $unreadMessagesCount > 0 ? 'text-white font-bold' : 'font-semibold' }} text-lg ">
-                                        {{ $name }}
-                                    </div>
-                                    <span
-                                        class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'font-bold' : 'text-gray-500' }}">
+                                    <x-chats.details-chat>
+                                        {{ $item->getName() }}
+                                    </x-chats.details-chat>
+                                    <x-chats.details-chat>
                                         {{ implode('..', str_split($item->chats->lastMessage->boddy_message, 20)) }}
-                                    </span>
-                                    <div
-                                        class="{{ $item->chats->unreadMessagesCount($item->chats->id) > 0 ? 'font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
+                                    </x-chats.details-chat>
+                                    <x-chats.details-chat class="float-right lg:-mt-11">
                                         {{ date('H:i', strtotime($item->chats->lastMessage->created_at)) }}
-                                    </div>
-                                    <div x-show="unreadMessagesCount > 0">
+                                    </x-chats.details-chat>
+                                    <template x-if="unreadMessagesCount > 0">
                                         <x-border.rounded-border>
                                             {{ $item->chats->unreadMessagesCount($item->chats->id) }}
                                         </x-border.rounded-border>
-                                    </div>
+                                    </template>
                                 </div>
                             </x-chats.chat-view>
                         @endif

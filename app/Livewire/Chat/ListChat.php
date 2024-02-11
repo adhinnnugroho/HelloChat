@@ -14,6 +14,7 @@ class ListChat extends Component
     public $user, $search_chat, $user_login;
     public $listeners = [
         'sendnewmessage' => 'refreshChat',
+        'RefreshChat' => '$refresh',
     ];
 
     public function render()
@@ -55,12 +56,12 @@ class ListChat extends Component
         ])->update([
             'read_at' => date('Y-m-d, H:i:s'),
         ]);
-        $this->user = ChatRoom::where([
-            'this_users' => $data_userLogin->id
-        ])->orWhere([
-            'with_users' => $data_userLogin->id
-        ])->get();
-
+        // $this->user = ChatRoom::where([
+        //     'this_users' => $data_userLogin->id
+        // ])->orWhere([
+        //     'with_users' => $data_userLogin->id
+        // ])->get();
+        $this->dispatch('RefreshChat');
         $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }
 

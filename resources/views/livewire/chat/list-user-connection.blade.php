@@ -86,8 +86,9 @@
                             const blob = new Blob(this.audioChunks, {
                                 type: 'audio/wav'
                             });
-                            this.audioURL = URL.createObjectURL(blob);
-                            Livewire.dispatch('savedAudio', this.audioURL);
+                            Livewire.dispatch('savedAudio', {
+                                audio: URL.createObjectURL(blob)
+                            });
                             this.isRecording = false;
                         }
                     },

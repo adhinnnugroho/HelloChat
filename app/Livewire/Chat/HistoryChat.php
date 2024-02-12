@@ -15,7 +15,8 @@ class HistoryChat extends Component
 {
     public $listeners = [
         'savedChat' => 'savedChat',
-        'savedAudio' => 'savedAudio',
+        'savedAudio' => 'saveAudio',
+        'refresh::historyChat' => '$refresh'
     ];
 
     public $account_data;
@@ -85,17 +86,51 @@ class HistoryChat extends Component
         ]);
 
         $this->chatvalue = null;
+        $this->RefreshChat($data_userLogin);
+        $this->dispatch('sendnewmessage', $chat_room->id);
+    }
+
+    public function saveAudio($audio)
+    {
+
+        // Mengambil blob audio dari FormData
+        $audioString = $audio;
+        $data_userLogin = Auth::user();
+        $chat_room = ChatRoom::where([
+            'id' => $this->selectedContactId
+        ])->first();
+
+
+        if ($chat_room->this_users == $data_userLogin->id) {
+            $with_user = $chat_room->with_users;
+        } else {
+            $with_user = $chat_room->this_users;
+        }
+
+        $chat_id = Chat::create([
+            'sender_id' => $data_userLogin->id,
+            'receiver_id' => $with_user,
+            'chat_room'   => $this->selectedContactId
+        ]);
+
+        Message::create([
+            'chat_id' => $chat_id->id,
+            'boddy_message' => $audioString,
+            'chat_room'   => $chat_room->id,
+            'type_messages' => 'voice'
+        ]);
+
+        $this->chatvalue = null;
+        $this->RefreshChat($data_userLogin);
+        $this->dispatch('sendnewmessage', $chat_room->id);
+    }
+
+    private function RefreshChat($data_userLogin)
+    {
         $this->history_chat = Chat::where(function ($query) use ($data_userLogin) {
             $query->where('sender_id', $data_userLogin->id)->orWhere('receiver_id', $data_userLogin->id);
         })->where(function ($query) {
             $query->where('sender_id', $this->selectedContactId)->orWhere('receiver_id', $this->selectedContactId);
         })->first();
-
-        $this->dispatch('sendnewmessage', $chat_room->id);
-    }
-
-    public function saveAudio($audioData)
-    {
-        dd($audioData);
     }
 }

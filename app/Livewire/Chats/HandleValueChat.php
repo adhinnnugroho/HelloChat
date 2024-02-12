@@ -32,7 +32,6 @@ class HandleValueChat extends Component
     public function mount()
     {
         $this->user_login = Auth::user();
-
         $this->chat = Chat::where([
             'chat_room' => $this->chat
         ])->get();

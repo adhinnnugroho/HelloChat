@@ -17,7 +17,7 @@
             'bg-black text-white border border-black border-t-gray-600': $store.darkMode.on,
             'border border-white border-t-gray-300': !$store.darkMode.on
         }">
-        <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}' }">
+        <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}', open: false }">
             <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
 
             <div x-data="voiceNote()">
@@ -46,7 +46,7 @@
 
 
                 <template x-if="!isRecording">
-                    <x-icons.show-icons icons="microphone" actions="startRecording" />
+                    <x-icons.show-icons icons="microphone" actions="startRecording" x-on:click="open = !open" />
                 </template>
                 <template x-if="isRecording">
                     <div class="">
@@ -54,12 +54,21 @@
                         <x-icons.show-icons icons="stop-circle" actions="stopRecording" />
                     </div>
                 </template>
+
                 <div x-show="showMicNotFound">
-                    <div x-data="{ open: false }" x-init="open = !open;">
-                        <x-modal.simple-modal id="feedback-modal" show_id="open" title="Microphone Not Found"
-                            subtitle="">
-                        </x-modal.simple-modal>
-                    </div>
+                    <x-modal.simple-modal id="feedback-modal" show_id="open" title="Microphone Not Found"
+                        subtitle="">
+                        <x-slot name="icon">
+                            <button x-on:click="open = false"
+                                class="text-red-600 focus:outline-none hover:text-red-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </button>
+                        </x-slot>
+                    </x-modal.simple-modal>
                 </div>
             </div>
         </div>

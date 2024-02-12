@@ -48,19 +48,20 @@ class ListChat extends Component
 
     public function readMessage($contact_id)
     {
-        $data_userLogin = Auth::user();
-        $this->user_login = $data_userLogin;
         $code = Encryption::decryptId($contact_id);
-        Message::where([
-            'chat_id' => $code,
-        ])->update([
-            'read_at' => date('Y-m-d, H:i:s'),
-        ]);
-        // $this->user = ChatRoom::where([
-        //     'this_users' => $data_userLogin->id
-        // ])->orWhere([
-        //     'with_users' => $data_userLogin->id
-        // ])->get();
+
+        $checking_send_chat = Chat::where([
+            'id' => $code
+        ])->first();
+
+        if ($checking_send_chat->unreadMessagesCount($code) > 0) {
+            Message::where([
+                'chat_id' => $code,
+            ])->update([
+                'read_at' => date('Y-m-d, H:i:s'),
+            ]);
+        }
+
         $this->dispatch('RefreshChat');
         $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }

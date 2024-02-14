@@ -41,8 +41,8 @@
     <!-- end message -->
 
     @push('scripts')
-        <script src="{{ asset('/assets/js/voice-note.js') }}" />
-        <script src="{{ asset('/assets/js/textarea-animations.js') }}" />
+        <script src="{{ asset('/assets/js/voice-note.js') }}"></script>
+        <script src="{{ asset('/assets/js/textarea-animations.js') }}"></script>
         <script>
             function submitForm() {
                 Livewire.dispatch('savedChat')

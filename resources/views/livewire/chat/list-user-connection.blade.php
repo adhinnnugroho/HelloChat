@@ -67,7 +67,7 @@
                                     const blob = new Blob(this.audioChunks, {
                                         type: 'audio/wav'
                                     });
-                                    this.audioURL = URL.createObjectURL(blob);
+                                    // this.audioURL = URL.createObjectURL(blob);
                                 };
 
                                 this.mediaRecorder.start();
@@ -86,8 +86,15 @@
                             const blob = new Blob(this.audioChunks, {
                                 type: 'audio/wav'
                             });
+
+                            let formData = new FormData();
+                            formData.append('audio', blob);
+                            let formDataObject = {};
+                            formData.forEach(function(value, key) {
+                                formDataObject[key] = value;
+                            });
                             Livewire.dispatch('savedAudio', {
-                                audio: URL.createObjectURL(blob)
+                                audio: formDataObject
                             });
                             this.isRecording = false;
                         }

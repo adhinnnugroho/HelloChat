@@ -62,6 +62,7 @@ class ListChat extends Component
             ]);
         }
 
+
         $this->dispatch('RefreshChat');
         $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }

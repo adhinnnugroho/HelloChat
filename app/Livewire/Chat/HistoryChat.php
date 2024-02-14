@@ -10,13 +10,15 @@ use App\Models\Message;
 use Livewire\Component;
 use App\Models\ListContact;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class HistoryChat extends Component
 {
     public $listeners = [
         'savedChat' => 'savedChat',
         'savedAudio' => 'saveAudio',
-        'refresh::historyChat' => '$refresh'
+        'refresh::historyChat' => '$refresh',
+        'HandleChat::SetSelectedContact' => 'mount'
     ];
 
     public $account_data;
@@ -33,12 +35,9 @@ class HistoryChat extends Component
     {
         $this->account_data = User::where(['id' => $this->selectedContactId])->first();
         $this->chatvalue = null;
-        $data_userLogin = Auth::user();
-        $this->history_chat = Chat::where(function ($query) use ($data_userLogin) {
-            $query->where('sender_id', $data_userLogin->id)->orWhere('receiver_id', $data_userLogin->id);
-        })->where(function ($query) {
-            $query->where('sender_id', $this->selectedContactId)->orWhere('receiver_id', $this->selectedContactId);
-        })->first();
+        $this->history_chat = Chat::where([
+            'chat_room' => $this->selectedContactId
+        ])->first();
     }
 
     public function savedChat()
@@ -92,9 +91,15 @@ class HistoryChat extends Component
 
     public function saveAudio($audio)
     {
-
+        dd($audio);
         // Mengambil blob audio dari FormData
-        $audioString = $audio;
+        $audioPath = 'images/user-profile/audio.wav';
+        $audioUrl = URL::to($audioPath); // Mengambil URL dari file yang disimpan
+
+        // Misalnya, menyimpan file menggunakan file_put_contents
+        file_put_contents($audioPath, file_get_contents($audio['audio']));
+        $audioString = $audioPath;
+        // $audioString = $audio;
         $data_userLogin = Auth::user();
         $chat_room = ChatRoom::where([
             'id' => $this->selectedContactId

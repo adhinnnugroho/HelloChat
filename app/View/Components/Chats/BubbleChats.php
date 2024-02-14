@@ -12,7 +12,7 @@ class BubbleChats extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($color = 'green-800', $positions = 'end')
+    public function __construct($color, $positions = 'end')
     {
         $this->color = $color;
         $this->positions = $positions;

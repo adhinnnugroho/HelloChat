@@ -19,7 +19,7 @@ class HandleChats extends Component
 
     public function render()
     {
-        return view('livewire.chat.handle-chats');
+        return view('livewire.chats.handle-chats');
     }
 
     public function setSelectedContact($uuid_contact)

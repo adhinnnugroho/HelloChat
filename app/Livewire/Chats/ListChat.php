@@ -19,7 +19,7 @@ class ListChat extends Component
 
     public function render()
     {
-        return view('livewire.chat.list-chat');
+        return view('livewire.chats.list-chat');
     }
 
 

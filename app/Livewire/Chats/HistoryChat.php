@@ -28,7 +28,7 @@ class HistoryChat extends Component
 
     public function render()
     {
-        return view('livewire.chat.history-chat');
+        return view('livewire.chats.history-chat');
     }
 
     public function mount()

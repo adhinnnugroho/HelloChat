@@ -20,7 +20,7 @@ class ListUserConnection extends Component
 
     public function render()
     {
-        return view('livewire.chat.list-user-connection');
+        return view('livewire.chats.list-user-connection');
     }
 
     public function mount()

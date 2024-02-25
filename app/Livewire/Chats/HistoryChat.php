@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Chat;
+namespace App\Livewire\Chats;
 
 use App\Models\Chat;
 use App\Models\User;
@@ -54,23 +54,6 @@ class HistoryChat extends Component
         } else {
             $with_user = $chat_room->this_users;
         }
-
-
-
-        // $checking_chat = Chat::where([
-        //     'sender_id' => $data_userLogin->id,
-        //     'receiver_id' => $with_user,
-        // ])->first();
-
-        // if (is_null($checking_chat)) {
-        //     $chat_id = Chat::create([
-        //         'sender_id' => $data_userLogin->id,
-        //         'receiver_id' => $with_user,
-        //         'chat_room'   => $this->selectedContactId
-        //     ]);
-        // } else {
-        //     $chat_id = $checking_chat;
-        // }
 
         $chat_id = Chat::create([
             'sender_id' => $data_userLogin->id,

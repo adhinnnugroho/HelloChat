@@ -13,7 +13,7 @@
                                 'selectedContactId' => $item->uuid_list_contact,
                             ])
                         </x-sidebar.custom-sidebar>
-                        @livewire('chat.history-chat', [
+                        @livewire('chats.history-chat', [
                             'selectedContactId' => $item->id,
                         ])
                     </div>

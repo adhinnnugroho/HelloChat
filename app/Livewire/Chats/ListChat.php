@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Chat;
+namespace App\Livewire\Chats;
 
 use App\Models\Chat;
 use App\Models\Message;

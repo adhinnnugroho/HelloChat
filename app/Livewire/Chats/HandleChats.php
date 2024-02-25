@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Chat;
+namespace App\Livewire\Chats;
 
 use App\Models\Chat\ChatRoom;
 use Illuminate\Support\Facades\Auth;

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Authentication;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class LoginView extends Component

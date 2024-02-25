@@ -9,13 +9,15 @@ use Illuminate\View\Component;
 class SimpleInput extends Component
 {
 
-    public $type;
+    public $type, $label, $error;
     /**
      * Create a new component instance.
      */
-    public function __construct($type = 'text')
+    public function __construct($type = 'text', $label = null, $error = null)
     {
         $this->type = $type;
+        $this->label = $label;
+        $this->error = $error;
     }
 
     /**

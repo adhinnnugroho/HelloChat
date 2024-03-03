@@ -17,14 +17,28 @@
             'bg-black text-white border border-black border-t-gray-600': $store.darkMode.on,
             'border border-white border-t-gray-300': !$store.darkMode.on
         }">
-        <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}', open: false }">
-            <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
-
-            <div x-data="voiceNote()">
+        <div class="flex flex-wrap" x-data="{ inputValue: '{{ $chatvalue }}', open: false, another_fitur: false }">
+            <div class="w-10">
+                <i class="fas fa-plus text-3xl text-gray-500 mt-2 cursor-pointer transition transform duration-300"
+                    x-bind:class="{
+                        'rotate-0': !another_fitur,
+                        'rotate-45': another_fitur
+                    }"
+                    x-on:click="another_fitur = !another_fitur"></i>
+                <div class="bg-white absolute bottom-16 shadow w-44 border rounded-lg text-black overflow-hidden"
+                    x-show="another_fitur" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="transform opacity-0 scale-0"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-200"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-0">
+                    Fitur Lain
+                </div>
+            </div>
+            <div class="" x-data="voiceNote()">
                 <x-text-area.simple-text-area type="text" placeholder="Ketik pesan Anda..." id="send_message"
                     x-ref="input" x-model="inputValue" wire:model.lazy="chatvalue" @keydown.enter="submitForm"
                     x-on:keyup="adjustInputHeight" style="height: 50px;" x-show="!isRecording" />
-
                 <div x-data="{ hours: 0, minutes: 0, seconds: 0, timer: null }" x-init="timer = setInterval(() => {
                     seconds++;
                     if (seconds === 60) {

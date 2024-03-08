@@ -42,28 +42,20 @@ class HistoryChat extends Component
 
     public function savedChat()
     {
-        $valueChat = $this->chatvalue;
         $data_userLogin = Auth::user();
-        $chat_room = ChatRoom::where([
-            'id' => $this->selectedContactId
-        ])->first();
 
+        $chat_room = ChatRoom::find($this->selectedContactId);
+        $with_user = ($chat_room->this_users == $data_userLogin->id) ? $chat_room->with_users : $chat_room->this_users;
 
-        if ($chat_room->this_users == $data_userLogin->id) {
-            $with_user = $chat_room->with_users;
-        } else {
-            $with_user = $chat_room->this_users;
-        }
-
-        $chat_id = Chat::create([
+        $chat = Chat::create([
             'sender_id' => $data_userLogin->id,
             'receiver_id' => $with_user,
             'chat_room'   => $this->selectedContactId
         ]);
 
         Message::create([
-            'chat_id' => $chat_id->id,
-            'boddy_message' => $valueChat,
+            'chat_id' => $chat->id,
+            'boddy_message' => $this->chatvalue,
             'chat_room'   => $chat_room->id
         ]);
 
@@ -115,10 +107,14 @@ class HistoryChat extends Component
 
     private function RefreshChat($data_userLogin)
     {
-        $this->history_chat = Chat::where(function ($query) use ($data_userLogin) {
-            $query->where('sender_id', $data_userLogin->id)->orWhere('receiver_id', $data_userLogin->id);
-        })->where(function ($query) {
-            $query->where('sender_id', $this->selectedContactId)->orWhere('receiver_id', $this->selectedContactId);
+        $selectedContactId = $this->selectedContactId;
+        $data_userLogin = Auth::user();
+
+        $this->history_chat = Chat::where(function ($query) use ($data_userLogin, $selectedContactId) {
+            $query->where('sender_id', $data_userLogin->id)
+                ->orWhere('receiver_id', $data_userLogin->id)
+                ->where('sender_id', $selectedContactId)
+                ->orWhere('receiver_id', $selectedContactId);
         })->first();
     }
 }

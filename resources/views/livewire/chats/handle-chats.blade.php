@@ -1,6 +1,5 @@
 <div>
     @if (!is_null($selected_contact))
-
         @foreach ($user as $key => $item)
             <template x-if="selectedContact == '{{ $item->uuid_list_contact }}'">
                 <div class="flex flex-col justify-between" x-bind:class="{ 'bg-black text-white': $store.darkMode.on }">

@@ -14,6 +14,7 @@ class ListUserConnection extends Component
 {
     public $user;
     public $selected_contact, $count_message_not_read;
+    public $UserLogin;
     public $listeners = [
         'refreshNavbar' => '$refresh',
     ];
@@ -25,23 +26,9 @@ class ListUserConnection extends Component
 
     public function mount()
     {
-        $data_userLogin = Auth::user();
-        $this->user = ChatRoom::where([
-            'this_users' => $data_userLogin->id
-        ])->orWhere([
-            'with_users' => $data_userLogin->id
-        ])->get();
-    }
-
-    public function setNewUser()
-    {
-        $data_userLogin = Auth::user();
-        $this->user = Chat::where(function ($query) use ($data_userLogin) {
-            $query->where('receiver_id', $data_userLogin->id)
-                ->orWhere('sender_id', $data_userLogin->id);
-        })->orWhere(function ($query) use ($data_userLogin) {
-            $query->where('receiver_id', $data_userLogin->id)
-                ->orWhere('sender_id', $data_userLogin->id);
-        })->orderBy('chats.created_at', 'desc')->get();
+        $this->UserLogin = Auth::user();
+        $this->user = ChatRoom::where(function ($ListChatUserQuery) {
+            $ListChatUserQuery->where('this_users', $this->UserLogin->id)->orWhere('with_users', $this->UserLogin->id);
+        })->get();
     }
 }

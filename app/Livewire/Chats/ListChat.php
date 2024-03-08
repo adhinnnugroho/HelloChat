@@ -6,12 +6,14 @@ use App\Models\Chat;
 use App\Models\Message;
 use Livewire\Component;
 use App\Helpers\Encryption;
+use App\Models\Accounts\UserDetails;
 use App\Models\Chat\ChatRoom;
 use Illuminate\Support\Facades\Auth;
 
 class ListChat extends Component
 {
-    public $user, $search_chat, $user_login;
+    public $ListUserChat, $search_chat, $UserLogin;
+    public $getSessionUserLogin;
     public $listeners = [
         'sendnewmessage' => 'refreshChat',
         'RefreshChat' => '$refresh',
@@ -25,66 +27,41 @@ class ListChat extends Component
 
     public function mount()
     {
-        $data_userLogin = Auth::user();
-        $this->user = ChatRoom::where([
-            'this_users' => $data_userLogin->id
-        ])->orWhere([
-            'with_users' => $data_userLogin->id
-        ])->whereHas('chats', function ($query) {
-            $query->whereNotNull('chats.id');
-        })->get();
+        $UserLogin = Auth::user();
+        $this->getSessionUserLogin = $UserLogin;
+
+        $this->ListUserChat = ChatRoom::where(function ($ListChatUserQuery) use ($UserLogin) {
+            $ListChatUserQuery->where('this_users', $UserLogin->id)->orWhere('with_users', $UserLogin->id);
+        })->whereHas('chats')->get();
+
+
+        $this->UserLogin = UserDetails::where(['id' => $UserLogin->id])->first();
     }
 
-    public function refreshChat($chat_room)
+    public function refreshChat()
     {
-        $data_userLogin = Auth::user();
-        $this->user = ChatRoom::where([
-            'this_users' => $data_userLogin->id
-        ])->orWhere([
-            'with_users' => $data_userLogin->id
-        ])->get();
+        $this->ListUserChat = ChatRoom::where(function ($ListChatUserQuery) {
+            $ListChatUserQuery->where('this_users', $this->getSessionUserLogin->id)->orWhere('with_users', $this->getSessionUserLogin->id);
+        })->get();
     }
 
 
     public function readMessage($contact_id)
     {
         $code = Encryption::decryptId($contact_id);
-
-        $checking_send_chat = Chat::where([
-            'id' => $code
-        ])->first();
-
-        if ($checking_send_chat->unreadMessagesCount($code) > 0) {
-            Message::where([
-                'chat_id' => $code,
-            ])->update([
-                'read_at' => date('Y-m-d, H:i:s'),
-            ]);
+        if (Chat::where('id', $code)->exists()) {
+            Message::where('chat_id', $code)
+                ->whereNull('read_at')
+                ->update(['read_at' => now()]);
         }
-
-
         $this->dispatch('RefreshChat');
         $this->dispatch('HandleChat::SetSelectedContact', $contact_id);
     }
 
     public function updatedSearchChat()
     {
-        $data_userLogin = Auth::user();
-
-        $searchTerm = $this->search_chat;
-        $this->user = Chat::where(function ($query) use ($data_userLogin) {
-            $query->where('receiver_id', $data_userLogin->id)->orWhere('sender_id', $data_userLogin->id);
-        })
-            ->orWhere(function ($query) use ($data_userLogin) {
-                $query->where('receiver_id', $data_userLogin->id)->orWhere('sender_id', $data_userLogin->id);
-            })->where(function ($query) use ($searchTerm) {
-                $query->whereHas('receiver.user', function ($q) use ($searchTerm) {
-                    $q->where('name', 'LIKE', "%$searchTerm%");
-                })->orWhereHas('sender.user', function ($q) use ($searchTerm) {
-                    $q->where('name', 'LIKE', "%$searchTerm%");
-                });
-            })
-            ->orderBy('chats.created_at', 'desc')
-            ->get();
+        $this->ListUserChat = ChatRoom::where(function ($ListChatUserQuery) {
+            $ListChatUserQuery->where('this_users', $this->getSessionUserLogin->id)->orWhere('with_users', $this->getSessionUserLogin->id);
+        })->whereHas('chats')->get();
     }
 }

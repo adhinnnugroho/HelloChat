@@ -66,7 +66,8 @@ class HistoryChat extends Component
 
     public function saveAudio($audio)
     {
-        dd($audio);
+        $data = $audio['audio'];
+        dd($data);
         // Mengambil blob audio dari FormData
         $audioPath = 'images/user-profile/audio.wav';
         $audioUrl = URL::to($audioPath); // Mengambil URL dari file yang disimpan
